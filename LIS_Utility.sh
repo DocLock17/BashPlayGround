@@ -40,11 +40,13 @@ install_software_selected() {
 
 
 install_ubuntu_dependencies() {
-	echo "installing Dependency"
+	echo "Installing Dependency"
+	echo " "
 }
 
 install_ubuntu_utilities() {
-	echo "installing Utilities"
+	echo "Installing Utilities ..."
+	echo " "
 }
 
 install_ubuntu_ml(){
@@ -86,25 +88,110 @@ install_ubuntu_miner(){
 # Needs fullfilled
 
 install_ubuntu_server(){
+	echo "Installing Ubuntu Server"
 	install_ubuntu_dependencies
-	echo "installing ubuntu server"
 }
-# Needs fullfilled
 
 
+
+install_rpi_dependencies() {
+	echo "Installing Dependency"
+	echo " "
+	sudo apt-get install software-properties-common build-essential cmake python3-dev libatlas-base-dev -y python3-pyqt5 libhdf5-dev libhdf5-103 libhdf5-dev -y
+	echo " "
+	sudo apt-get install libjpeg-dev libpng-dev libavcodec-dev libavformat-dev libswscale-dev libxvidcore-dev -y
+	echo " "
+	sudo apt-get install liblapack-dev libblas-dev libgirepository1.0-dev libpango1.0-dev libv4l-dev -y
+	echo " "
+	sudo apt-get install libx264-dev libtiff5-dev libfontconfig1-dev libcairo2-dev libgdk-pixbuf2.0-dev -y
+	echo " "
+	sudo apt-get install libgtk-3-dev libgtk2.0-dev libqtwebkit4 libqt4-test libgl1-mesa-glx libegl1-mesa -y
+	echo " "
+	sudo apt-get install libxtst6 libpango1.0-0 hdf5-tools gconf2-common gvfs-bin gfortran xclip -y 
+}
+
+
+install_rpi_utilities() {
+	echo "Installing Utilities ..." &&
+	echo " "
+	sudo apt-get install nodejs npm screen hddtemp lm-sensors pv -y
+	echo " "
+	sudo python3 -m pip install --user --upgrade pip
+	echo " "
+	sudo python3 -m pip install --user virtualenv
+}
 
 install_rpi_desktop(){
-	echo "installing rpi desktop"
+	install_rpi_dependencies
+	install_rpi_utilities
+	echo "Installing RPi Desktop"
+	Python3 -m venv env
+	echo "Installing Virtual Environment ..." &&
+	echo " " &&
+	source env/bin/activate &&
+	#echo " " >> ~/.bashrc &&
+	echo "export PATH=/root/.local/bin:$PATH" >> ~/.bashrc &&
+	echo " " &&
+	echo "Adding virtual environment to the PATH ..." &&
+	echo " " &&
+	echo "Installing virtual environment resources ..." &&
+	echo " " &&
+	pip3 install -r setup/packagelist.txt &&
+	echo " " &&
+	echo "You will need to restart before changes can take effect ..." &&
+	echo " " &&
+	echo "Installation Complete!"
+	echo ""
 }
 # Needs fullfilled
 
 install_rpi_lockcam(){
-	echo "installing rpi lockcam"
+	install_rpi_dependencies
+	install_rpi_utilities
+	echo "Installing RPi LockCam"
+	Python3 -m venv env
+	echo "Installing Virtual Environment ..." &&
+	echo " " &&
+	source env/bin/activate &&
+	#echo " " >> ~/.bashrc &&
+	echo "export PATH=/root/.local/bin:$PATH" >> ~/.bashrc &&
+	echo " " &&
+	echo "Adding virtual environment to the PATH ..." &&
+	echo " " &&
+	echo "Installing virtual environment resources ..." &&
+	echo " " &&
+	pip3 install -r setup/packagelist.txt &&
+	echo " " &&
+	pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl &&
+	echo " " &&
+	echo "You will need to restart before changes can take effect ..." &&
+	echo " " &&
+	echo "Installation Complete!"
+	echo ""
 }
 # Needs fullfilled
 
 install_rpi_console(){
-	echo "installing rpi console"
+	install_rpi_dependencies
+	install_rpi_utilities
+	echo "Installing RPi Console"
+	Python3 -m venv env
+	echo "Installing Virtual Environment ..." &&
+	echo " " &&
+	source env/bin/activate &&
+	#echo " " >> ~/.bashrc &&
+	echo "export PATH=/root/.local/bin:$PATH" >> ~/.bashrc &&
+	echo " " &&
+	echo "Adding virtual environment to the PATH ..." &&
+	echo " " &&
+	echo "Installing virtual environment resources ..." &&
+	echo " " &&
+	pip3 install -r setup/packagelist.txt &&
+	echo " " &&
+	echo "You will need to restart before changes can take effect ..." &&
+	echo " " &&
+	echo "Installation Complete!"
+	echo ""
 }
 # Needs fullfilled
 
