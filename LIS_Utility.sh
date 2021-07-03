@@ -353,6 +353,7 @@ install_rpi_desktop(){
 	update_selected
 	echo " "
 	echo "Installing RPi Desktop"
+	echo " "
 	python3 -m venv env
 	echo "Installing Virtual Environment ..." &&
 	echo " " &&
@@ -364,7 +365,7 @@ install_rpi_desktop(){
 	echo " " &&
 	echo "Installing virtual environment resources ..." &&
 	echo " " &&
-	pip3 install -r setup/packagelist.txt &&
+	pip3 install -r packagelist.txt &&
 	echo " " &&
 	install_rpi_jupyter
 	echo "You will need to restart before changes can take effect ..." &&
