@@ -43,10 +43,15 @@ install_software_selected() {
 
 		sudo ./retropie_setup.sh
 	}
+	snap install atom --classic
+	snap install discord
+	snap install spotify
 	install_software_sub=0
 	echo "Select Software to install"
 	echo ""
-	echo "1)RetroPie         2)Back to Menu"
+	echo "1)RetroPie       2)Atom"
+	echo "3)Discord        4)Spotify"
+	echo "5)Install All    6)Back to Menu"
 	echo ""
 	until [[ $install_software_sub == [1-2] ]]; do
         	read -p "Selection: " install_software_sub
@@ -54,7 +59,11 @@ install_software_selected() {
 
 	case $install_software_sub in
 		1) install_retroPie;;
-		2) echo "Exiting . . . "
+		2) snap install atom --classic;;
+		3) snap install discord;;
+		4) snap install spotify;;
+		5) snap install atom --classic; snap install discord; snap install spotify; install_retroPie;;
+		6) echo "Exiting . . . "
 	esac
 }
 
@@ -113,9 +122,7 @@ install_ubuntu_dependencies() {
 	curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 	sudo apt-get install -y nodejs
 
-	sudo apt-get install gvfs-bin psmisc libpango1.0-0 node.js pciutils xclip xsel figlet -y  
-
-	sudo apt-get install cmake tilix net-tools screen htop links2 elinks hddtemp lm-sensors pv -y
+	sudo apt-get install gvfs-bin psmisc libpango1.0-0 node.js pciutils xclip xsel figlet cmake -y  
 }
 
 install_ubuntu_utilities() {
@@ -123,9 +130,15 @@ install_ubuntu_utilities() {
 	echo "Installing Utilities ..."
 	echo " "
 	sudo apt-get install micro -y
-	snap install atom --classic
-	snap install discord
-	snap install spotify
+	sudo apt-get install tilix -y
+	sudo apt-get install net-tools -y 
+	sudo apt-get install screen -y
+	sudo apt-get install htop -y
+	sudo apt-get install links2 -y
+	sudo apt-get install elinks -y
+	sudo apt-get install hddtemp -y
+	sudo apt-get install lm-sensors -y
+	sudo apt-get install pv -y
 }
 
 install_ubuntu_jupyter() {
@@ -145,7 +158,7 @@ install_ubuntu_ml(){
 	install_ubuntu_myStack() {
 		install_ubuntu_dependencies
 		update_selected
-		echo "installing myStack"
+		echo "Installing myStack"
 		# Install Tools
 		#sudo python3 -m pip install --upgrade pip  
 		#echo ""  
@@ -185,7 +198,7 @@ install_ubuntu_ml(){
 	install_ubuntu_lambdaStack() {
 		install_ubuntu_dependencies
 		update_selected
-		echo "installing LambdaStack"
+		echo "Installing LambdaStack"
 		# Add Lambda Repository
 		LAMBDA_REPO=$(mktemp)  
 		wget -O${LAMBDA_REPO} https://lambdalabs.com/static/misc/lambda-stack-repo.deb  
@@ -240,7 +253,7 @@ install_ubuntu_ml(){
 	echo "Select Stack Configuration"
 	echo ""
 	echo "1)Ubuntu-myStack         2)Ubuntu-LambdaStack"
-	echo "3)Ubuntu-anacondaStack  4)Back to Menu"
+	echo "3)Ubuntu-anacondaStack   4)Back to Menu"
 	echo ""
 	until [[ $install_ubuntu_ml_selection == [1-4] ]]; do
         	read -p "Selection: " install_ubuntu_ml_selection
@@ -470,3 +483,6 @@ main_menu() {
 main_menu
 echo ""
 echo "End of line"
+echo ""
+echo "sudo apt-get update && sudo apt-get upgrade -y && sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo reboot now"
+echo ""
