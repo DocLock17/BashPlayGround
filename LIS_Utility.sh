@@ -4,8 +4,8 @@ update_selected() {
 	echo "Updating . . ."
 	sudo apt update
 	sudo apt-get update
-	sudo apt upgrade -y
-	sudo apt-get upgrade -y
+	sudo apt upgrade -y --allow-downgrades
+	sudo apt-get upgrade -y --allow-downgrades
 	sudo apt autoremove -y
 	sudo apt-get autoremove -y
 	echo ""
@@ -484,5 +484,5 @@ main_menu
 echo ""
 echo "End of line"
 echo ""
-echo "sudo apt-get update && sudo apt-get upgrade -y --allow-downgrades && sudo apt update && sudo apt upgrade -y --allow-downgrades && sudo apt autoremove -y && sudo reboot now"
+echo "sudo apt-get update && sudo apt-get upgrade -y  && sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo reboot now"
 echo ""
