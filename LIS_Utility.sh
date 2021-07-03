@@ -13,6 +13,7 @@ update_selected() {
 	echo ""
 }
 
+# Fullfillment Needed
 configure_network_selected() {
 	echo "Im configureing the network interface"
 	while [[ -z $server_name ]]
@@ -23,13 +24,13 @@ configure_network_selected() {
 	echo "My server name is: $server_name"
 	sleep 1
 }
-# Needs fullfilled
 
+# Fullfillment Needed
 configure_ssh_selected() {
 	echo "Im configuring ssh"
 	sleep 1
 }
-# Needs fullfilled
+
 
 install_software_selected() {
 	install_retroPie(){
@@ -67,7 +68,7 @@ install_software_selected() {
 	esac
 }
 
-
+# Currently not in use
 install_ubuntu_nvidiaDrivers() {
 	update_selected
 	# Install Basic Driver (unneeded!)
@@ -141,6 +142,7 @@ install_ubuntu_utilities() {
 	sudo apt-get install pv -y
 }
 
+# Currently not in use
 install_ubuntu_jupyter() {
 	update_selected
 	echo "Installing jupyter configuration ..." &&
@@ -153,6 +155,7 @@ install_ubuntu_jupyter() {
 	echo "c.JupyterApp.port = 8888" >> /home/doclock17/.jupyter/jupyter_notebook_config.py &&
 	echo "c.JupyterApp.password = ''" >> /home/doclock17/.jupyter/jupyter_notebook_config.py
 }
+
 
 install_ubuntu_ml(){
 	install_ubuntu_myStack() {
@@ -267,7 +270,6 @@ install_ubuntu_ml(){
 	esac
 }
 
-
 install_ubuntu_miner(){
 	install_ubuntu_ml
 	update_selected
@@ -284,7 +286,7 @@ install_ubuntu_server(){
 
 
 
-
+# Testing Needed
 install_rpi_dependencies() {
 	update_selected
 	echo "Installing Dependency"
@@ -302,7 +304,7 @@ install_rpi_dependencies() {
 	sudo apt-get install libxtst6 libpango1.0-0 hdf5-tools gconf2-common gvfs-bin gfortran xclip -y 
 }
 
-
+# Testing Needed
 install_rpi_utilities() {
 	update_selected
 	echo "Installing Utilities ..." &&
@@ -316,6 +318,7 @@ install_rpi_utilities() {
 	sudo python3 -m pip install --user virtualenv
 }
 
+# Testing Needed
 install_rpi_jupyter() {
 	update_selected
 	echo "Installing jupyter configuration ..." &&
@@ -329,6 +332,7 @@ install_rpi_jupyter() {
 	echo "c.JupyterApp.password = ''" >> /home/pi/.jupyter/jupyter_notebook_config.py
 }
 
+# Testing Needed
 install_rpi_desktop(){
 	install_rpi_dependencies
 	install_rpi_utilities
@@ -354,7 +358,7 @@ install_rpi_desktop(){
 	echo ""
 }
 
-
+# Testing Needed
 install_rpi_lockcam(){
 	install_rpi_dependencies
 	install_rpi_utilities
@@ -381,7 +385,7 @@ install_rpi_lockcam(){
 	echo ""
 }
 
-
+# Testing Needed
 install_rpi_console(){
 	install_rpi_dependencies
 	install_rpi_utilities
@@ -406,7 +410,7 @@ install_rpi_console(){
 	echo ""
 }
 
-
+# Testing Needed
 install_rpi_robot(){
 	install_rpi_dependencies
 	install_rpi_utilities
@@ -423,7 +427,6 @@ install_rpi_robot(){
 	# sudo pip3 install RPi.GPIO
 	install_rpi_jupyter
 }
-
 
 
 
@@ -481,8 +484,6 @@ main_menu() {
 }
 
 main_menu
-echo ""
-echo "End of line"
 echo ""
 echo "sudo apt-get update && sudo apt-get upgrade -y  && sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo reboot now"
 echo ""
