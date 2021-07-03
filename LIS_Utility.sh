@@ -362,6 +362,7 @@ install_rpi_utilities() {
 install_rpi_jupyter() {
 	update_selected
 	echo "Installing jupyter configuration ..."
+	pip install nodejs
 	pip install jupyter
 	pip install jupyterlab
 	#pip3 install jupyter
