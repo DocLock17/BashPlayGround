@@ -148,15 +148,31 @@ install_ubuntu_utilities() {
 # Currently not in use
 install_ubuntu_jupyter() {
 	update_selected
-	echo "Installing jupyter configuration ..." &&
-	echo "" &&
-	jupyter-lab --generate-config -y &&
-	echo "c.JupyterApp.open_browser = False" >> /home/doclock17/.jupyter/jupyter_notebook_config.py &&
-	echo "c.JupyterApp.allow_remote_access = True" >> /home/doclock17/.jupyter/jupyter_notebook_config.py &&
-	#echo "c.JupyterApp.ip = '10.0.0.X'" >> /home/doclock17/.jupyter/jupyter_notebook_config.py &&
-	echo "c.JupyterApp.ip = 'localhost'" >> /home/doclock17/.jupyter/jupyter_notebook_config.py &&
-	echo "c.JupyterApp.port = 8888" >> /home/doclock17/.jupyter/jupyter_notebook_config.py &&
-	echo "c.JupyterApp.password = ''" >> /home/doclock17/.jupyter/jupyter_notebook_config.py
+	echo "Installing jupyter configuration ..."
+	pip install jupyter
+	pip install jupyterlab
+	#pip3 install jupyter
+	#pip3 install jupyterlab
+	echo ""
+	jupyter-lab --generate-config -y
+	echo "# My Jupyter Config: " >> /home/doclock17/.jupyter/jupyter_lab_config.py
+	echo "c.JupyterApp.open_browser = False" >> /home/doclock17/.jupyter/jupyter_lab_config.py
+	echo "c.ServerApp.allow_remote_access = True" >> /home/doclock17/.jupyter/jupyter_lab_config.py
+	#echo "c.ServerApp.ip = '10.0.0.X'" >> /home/doclock17/.jupyter/jupyter_lab_config.py &&
+	echo "c.ServerApp.ip = 'localhost'" >> /home/doclock17/.jupyter/jupyter_lab_config.py
+	echo "c.ServerApp.port = 8888" >> /home/doclock17/.jupyter/jupyter_lab_config.py
+	echo "c.ServerApp.password = ''" >> /home/doclock17/.jupyter/jupyter_lab_config.py
+	echo "Jupyter Lab Configured"
+	echo " "
+	jupyter-notebook --generate-config -y
+	echo "# My Jupyter Config: " >> /home/doclock17/.jupyter/jupyter_notebook_config.py
+	echo "c.JupyterApp.open_browser = False" >> /home/doclock17/.jupyter/jupyter_notebook_config.py
+	echo "c.ServerApp.allow_remote_access = True" >> /home/doclock17/.jupyter/jupyter_notebook_config.py
+	#echo "c.ServerApp.ip = '10.0.0.X'" >> /home/doclock17/.jupyter/jupyter_notebook_config.py &&
+	echo "c.ServerApp.ip = 'localhost'" >> /home/doclock17/.jupyter/jupyter_notebook_config.py
+	echo "c.ServerApp.port = 8888" >> /home/doclock17/.jupyter/jupyter_notebook_config.py
+	echo "c.ServerApp.password = ''" >> /home/doclock17/.jupyter/jupyter_notebook_config.py
+	echo "Jupyter Notebook Configured"
 	echo " "
 }
 
