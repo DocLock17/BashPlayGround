@@ -334,8 +334,10 @@ install_rpi_utilities() {
 install_rpi_jupyter() {
 	update_selected
 	echo "Installing jupyter configuration ..."
-	pip install jupyter
-	pip install jupyterlab
+	#pip install jupyter
+	#pip install jupyterlab
+	pip3 install jupyter
+	pip3 install jupyterlab
 	echo ""
 	jupyter-lab --generate-config -y
 	echo "c.JupyterApp.open_browser = False" >> /home/pi/.jupyter/jupyter_notebook_config.py
@@ -382,7 +384,7 @@ install_rpi_lockcam(){
 	echo " "
 	echo "Installing RPi LockCam"
 	echo " "
-	Python3 -m venv env
+	python3 -m venv env
 	echo "Installing Virtual Environment ..."
 	echo " "
 	source env/bin/activate
@@ -410,7 +412,7 @@ install_rpi_console(){
 	update_selected
 	echo " "
 	echo "Installing RPi Console"
-	Python3 -m venv env
+	python3 -m venv env
 	echo "Installing Virtual Environment ..."
 	echo " "
 	source env/bin/activate
