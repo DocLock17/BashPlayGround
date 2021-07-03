@@ -410,6 +410,7 @@ install_rpi_console(){
 	install_rpi_dependencies
 	install_rpi_utilities
 	update_selected
+	install_rpi_jupyter
 	echo " "
 	echo "Installing RPi Console"
 	echo " "
