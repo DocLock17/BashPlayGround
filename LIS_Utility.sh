@@ -240,7 +240,7 @@ install_ubuntu_ml(){
 	echo "Select Stack Configuration"
 	echo ""
 	echo "1)Ubuntu-myStack         2)Ubuntu-LambdaStack"
-	echo "3)Ubbuntu-anacondaStack  4)Back to Menu"
+	echo "3)Ubuntu-anacondaStack  4)Back to Menu"
 	echo ""
 	until [[ $install_ubuntu_ml_selection == [1-4] ]]; do
         	read -p "Selection: " install_ubuntu_ml_selection
@@ -266,6 +266,7 @@ install_ubuntu_server(){
 	echo "Installing Ubuntu Server"
 	install_ubuntu_dependencies
 	update_selected
+	install_ubuntu_utilities
 }
 
 
