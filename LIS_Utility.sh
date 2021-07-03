@@ -2,32 +2,35 @@
 
 update_selected() {
 	echo "Updating . . ."
+	echo " "
 	sudo apt update
 	sudo apt-get update
 	sudo apt upgrade -y --allow-downgrades
 	sudo apt-get upgrade -y --allow-downgrades
 	sudo apt autoremove -y
 	sudo apt-get autoremove -y
-	echo ""
 	echo "System Updated"
-	echo ""
+	echo " "
 }
 
 # Fullfillment Needed
 configure_network_selected() {
 	echo "Im configureing the network interface"
+	echo " "
 	while [[ -z $server_name ]]
 	do
 		read -p "Who am I? " server_name
 	done
 
 	echo "My server name is: $server_name"
+	echo " "
 	sleep 1
 }
 
 # Fullfillment Needed
 configure_ssh_selected() {
 	echo "Im configuring ssh"
+	echo " "
 	sleep 1
 }
 
@@ -44,9 +47,6 @@ install_software_selected() {
 
 		sudo ./retropie_setup.sh
 	}
-	snap install atom --classic
-	snap install discord
-	snap install spotify
 	install_software_sub=0
 	echo "Select Software to install"
 	echo ""
@@ -64,7 +64,7 @@ install_software_selected() {
 		3) snap install discord;;
 		4) snap install spotify;;
 		5) snap install atom --classic; snap install discord; snap install spotify; install_retroPie;;
-		6) echo "Exiting . . . "
+		6) echo " "; echo "Exiting . . . "; echo " ";;
 	esac
 }
 
@@ -107,6 +107,7 @@ install_ubuntu_nvidiaDrivers() {
 	# Install CUDA
 	sudo apt install cuda-toolkit-11-2 -y && \
 	sudo apt install cuda -y
+	echo " "
 }
 
 install_ubuntu_dependencies() {
@@ -140,6 +141,7 @@ install_ubuntu_utilities() {
 	sudo apt-get install hddtemp -y
 	sudo apt-get install lm-sensors -y
 	sudo apt-get install pv -y
+	echo " "
 }
 
 # Currently not in use
@@ -154,6 +156,7 @@ install_ubuntu_jupyter() {
 	echo "c.JupyterApp.ip = 'localhost'" >> /home/doclock17/.jupyter/jupyter_notebook_config.py &&
 	echo "c.JupyterApp.port = 8888" >> /home/doclock17/.jupyter/jupyter_notebook_config.py &&
 	echo "c.JupyterApp.password = ''" >> /home/doclock17/.jupyter/jupyter_notebook_config.py
+	echo " "
 }
 
 
@@ -196,12 +199,14 @@ install_ubuntu_ml(){
 		#python -m pip install jupyter
 
 		install_ubuntu_utilities
+		echo " "
 	}
 
 	install_ubuntu_lambdaStack() {
 		install_ubuntu_dependencies
 		update_selected
 		echo "Installing LambdaStack"
+		echo " "
 		# Add Lambda Repository
 		LAMBDA_REPO=$(mktemp)  
 		wget -O${LAMBDA_REPO} https://lambdalabs.com/static/misc/lambda-stack-repo.deb  
@@ -242,6 +247,7 @@ install_ubuntu_ml(){
 		python -m ipykernel install --user --name=venv
 		pip3 install -r myPlus.txt --ignore-installed
 		install_ubuntu_utilities
+		echo " "
 	}
 
 	install_ubuntu_anacondaStack() {
@@ -249,6 +255,7 @@ install_ubuntu_ml(){
 		update_selected
 		echo "installing AnacondaStack"
 		install_ubuntu_utilities
+		echo " "
 	}
 
 	install_ubuntu_ml_selection=0
@@ -266,7 +273,7 @@ install_ubuntu_ml(){
 		1) install_ubuntu_myStack;;
 		2) install_ubuntu_lambdaStack;;
 		3) install_ubuntu_anacondaStack;;
-		4) echo "Exiting . . . "
+		4) echo " "; echo "Exiting . . . "; echo " ";;
 	esac
 }
 
@@ -275,6 +282,7 @@ install_ubuntu_miner(){
 	update_selected
 	echo "Installing Cudo Miner"
 	sudo su -c "bash <( wget -qO- https://download.cudo.org/tenants/135790374f46b0107c516a5f5e13069b/5e5f800fdf87209fdf8f9b61441e53a1/linux/x64/stable/install.sh )"
+	echo " "
 }
 
 install_ubuntu_server(){
@@ -282,6 +290,7 @@ install_ubuntu_server(){
 	install_ubuntu_dependencies
 	update_selected
 	install_ubuntu_utilities
+	echo " "
 }
 
 
@@ -302,7 +311,8 @@ install_rpi_dependencies() {
 	echo " "
 	sudo apt-get install libgtk-3-dev libgtk2.0-dev libqtwebkit4 libqt4-test libgl1-mesa-glx libegl1-mesa -y
 	echo " "
-	sudo apt-get install libxtst6 libpango1.0-0 hdf5-tools gconf2-common gvfs-bin gfortran xclip -y 
+	sudo apt-get install libxtst6 libpango1.0-0 hdf5-tools gconf2-common gvfs-bin gfortran xclip -y
+	echo " "
 }
 
 # Testing Needed
@@ -317,6 +327,7 @@ install_rpi_utilities() {
 	sudo python3 -m pip install --user --upgrade pip
 	echo " "
 	sudo python3 -m pip install --user virtualenv
+	echo " "
 }
 
 # Testing Needed
@@ -331,6 +342,7 @@ install_rpi_jupyter() {
 	echo "c.JupyterApp.ip = 'localhost'" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
 	echo "c.JupyterApp.port = 8888" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
 	echo "c.JupyterApp.password = ''" >> /home/pi/.jupyter/jupyter_notebook_config.py
+	echo " "
 }
 
 # Testing Needed
@@ -338,6 +350,7 @@ install_rpi_desktop(){
 	install_rpi_dependencies
 	install_rpi_utilities
 	update_selected
+	echo " "
 	echo "Installing RPi Desktop"
 	python3 -m venv env
 	echo "Installing Virtual Environment ..." &&
@@ -364,7 +377,9 @@ install_rpi_lockcam(){
 	install_rpi_dependencies
 	install_rpi_utilities
 	update_selected
+	echo " "
 	echo "Installing RPi LockCam"
+	echo " "
 	Python3 -m venv env
 	echo "Installing Virtual Environment ..." &&
 	echo " " &&
@@ -391,6 +406,7 @@ install_rpi_console(){
 	install_rpi_dependencies
 	install_rpi_utilities
 	update_selected
+	echo " "
 	echo "Installing RPi Console"
 	Python3 -m venv env
 	echo "Installing Virtual Environment ..." &&
@@ -416,7 +432,8 @@ install_rpi_robot(){
 	install_rpi_dependencies
 	install_rpi_utilities
 	update_selected
-	echo "installing rpi robot"
+	echo " "
+	echo "Installing RPi Robot"
 	# Bot Specific?
 	# sudo pip3 install pillow
 	# sudo pip3 install numpy
@@ -455,7 +472,7 @@ full_stack_install_selected() {
 		5) install_rpi_lockcam;;
 		6) install_rpi_console;;
 		7) install_rpi_robot;;
-		8) echo ""; echo "Exiting . . . "; sleep 1;;
+		8) echo ""; echo "Exiting . . . "; echo " ";;
 	esac
 }
 
@@ -480,7 +497,7 @@ main_menu() {
 		3) configure_ssh_selected; main_menu;;
 		4) install_software_selected; main_menu;;
 		5) full_stack_install_selected; main_menu;;
-		6) echo ""; echo "Exiting . . . "; sleep 1;;
+		6) echo ""; echo "Exiting . . . "; echo " ";;
 	esac
 }
 
