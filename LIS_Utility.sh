@@ -253,7 +253,7 @@ install_ubuntu_ml(){
 	echo "Select Stack Configuration"
 	echo ""
 	echo "1)Ubuntu-myStack         2)Ubuntu-LambdaStack"
-	echo "3)Ubuntu-anacondaStack   4)Back to Menu"
+	echo "3)Ubuntu-anacondaStack   4)Exit Without Installing"
 	echo ""
 	until [[ $install_ubuntu_ml_selection == [1-4] ]]; do
         	read -p "Selection: " install_ubuntu_ml_selection
