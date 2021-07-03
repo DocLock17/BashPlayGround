@@ -352,6 +352,16 @@ install_rpi_jupyter() {
 	#pip3 install jupyterlab
 	echo ""
 	jupyter-lab --generate-config -y
+	echo "# My Jupyter Config: " >> /home/pi/.jupyter/jupyter_lab_config.py
+	echo "c.JupyterApp.open_browser = False" >> /home/pi/.jupyter/jupyter_lab_config.py
+	echo "c.JupyterApp.allow_remote_access = True" >> /home/pi/.jupyter/jupyter_lab_config.py
+	#echo "c.JupyterApp.ip = '10.0.0.X'" >> /home/pi/.jupyter/jupyter_lab_config.py &&
+	echo "c.JupyterApp.ip = 'localhost'" >> /home/pi/.jupyter/jupyter_lab_config.py
+	echo "c.JupyterApp.port = 8888" >> /home/pi/.jupyter/jupyter_lab_config.py
+	echo "c.JupyterApp.password = ''" >> /home/pi/.jupyter/jupyter_lab_config.py
+	echo "Jupyter Lab Configured"
+	echo " "
+	jupyter-notebook --generate-config -y
 	echo "# My Jupyter Config: " >> /home/pi/.jupyter/jupyter_notebook_config.py
 	echo "c.JupyterApp.open_browser = False" >> /home/pi/.jupyter/jupyter_notebook_config.py
 	echo "c.JupyterApp.allow_remote_access = True" >> /home/pi/.jupyter/jupyter_notebook_config.py
@@ -359,6 +369,7 @@ install_rpi_jupyter() {
 	echo "c.JupyterApp.ip = 'localhost'" >> /home/pi/.jupyter/jupyter_notebook_config.py
 	echo "c.JupyterApp.port = 8888" >> /home/pi/.jupyter/jupyter_notebook_config.py
 	echo "c.JupyterApp.password = ''" >> /home/pi/.jupyter/jupyter_notebook_config.py
+	echo "Jupyter Notebook Configured"
 	echo " "
 }
 
