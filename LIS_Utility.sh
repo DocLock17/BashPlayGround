@@ -296,7 +296,7 @@ install_ubuntu_server(){
 
 
 
-# Testing Needed
+
 install_rpi_dependencies() {
 	update_selected
 	echo " "
@@ -316,7 +316,6 @@ install_rpi_dependencies() {
 	echo " "
 }
 
-# Testing Needed
 install_rpi_utilities() {
 	update_selected
 	echo "Installing Utilities ..."
@@ -335,6 +334,8 @@ install_rpi_utilities() {
 install_rpi_jupyter() {
 	update_selected
 	echo "Installing jupyter configuration ..."
+	pip install jupyter -y
+	pip install jupyterlab -y
 	echo ""
 	jupyter-lab --generate-config -y
 	echo "c.JupyterApp.open_browser = False" >> /home/pi/.jupyter/jupyter_notebook_config.py
