@@ -14,19 +14,120 @@ update_selected() {
 	echo " "
 }
 
-# Fullfillment Needed
+# Testing Needed
 configure_network_selected() {
-	echo "Im configureing the network interface"
 	echo " "
+	echo "Now configureing Network Interface"
+	echo " "
+
+	while [[ -z $server_number ]]
+	do
+		read -p "Input Unit Number: " server_number
+	done
+	#echo "Unit Number is: $server_number"
+
 	while [[ -z $server_name ]]
 	do
-		read -p "Who am I? " server_name
+		read -p "Input Unit Name: " server_name
 	done
+	#echo "Unit Name is: $server_name"
 
-	echo "My server name is: $server_name"
-	echo " "
+	my_hostname="LIS"$server_number"-"$server_name
+
+	echo "Hostname will be changed to: $my_hostname in 3 seconds"; echo ""
 	sleep 1
+
+	echo "3"; echo ""
+	sleep 1
+
+	echo "2"; echo ""
+	sleep 1
+
+	echo "1"; echo ""
+	sleep 1
+
+	echo "$my_hostname" > /etc/hostname
+	echo "Hostname is now: $my_hostname"; echo ""
+
+	#### Helpful Hints
+	#to get external ip
+	#global_ip=`wget -qO- ipecho.net/plain`
+	#echo global_ip
+
+	# to get local ip
+	# ip a s wlo1 | awk '/inet / {print$2}'|cut -d/ -f1
+	
+	# to get local mask
+	# ip a s wlo1 | awk '/inet / {print$2}'|cut -d/ -f2
+
+	# to get ip leader
+	#ip a s wlo1 | awk '/inet / {print$2}'|cut -d. -f1-3
+
+	# Show all interface names:
+	# ip link | awk -F: '$0 ~ "en|et|wl|^[^0-9]"{print $2a;getline}'
+
+	# Show current interface name (might be deprecated soon)
+	# ip route | grep default | sed -e "s/^.*dev.//" -e "s/.proto.*//"
+	# also
+	# ip route get 8.8.8.8 | awk -- '{printf $5}'
+
+	#### Will Create this
+	# sudo nano /etc/netplan/99_config.yaml
+
+	# network:
+	#   version: 2
+	#   renderer: networkd
+	#   ethernets:
+	#     wlo1:
+	#       addresses:
+	#         - 10.0.0.25/24
+	#       gateway4: 10.0.0.1
+	#       nameservers:
+	#           search: [mydomain, otherdomain]
+	#           addresses: [10.0.0.1, 8.8.8.8, 7.7.7.7]
+
+	# sudo netplan apply
+
+	interface_name=$(ip route | grep default | sed -e "s/^.*dev.//" -e "s/.proto.*//")
+	ip_leader=$(hostname -I | cut -d. -f1-3)
+	ip_suffix=$(ip a s $interface_name | awk '/inet / {print$2}'|cut -d/ -f2)
+	new_ip=$ip_leader"."$server_number
+	ip_string=$new_ip"/"$ip_suffix
+	
+	echo "Local IP Address on $interface_name will be changed to: $new_ip in 5 seconds"; echo ""
+	sleep 1
+
+	echo "5"; echo ""
+	sleep 1
+
+	echo "4"; echo ""
+	sleep 1
+
+	echo "3"; echo ""
+	sleep 1
+
+	echo "2"; echo ""
+	sleep 1
+
+	echo "1"; echo ""
+	sleep 1
+
+	echo "" > /etc/netplan/99_config.yaml
+	echo "network:" >> /etc/netplan/99_config.yaml
+	echo "	version: 2" >> /etc/netplan/99_config.yaml
+	echo "	renderer: networkd" >> /etc/netplan/99_config.yaml
+	echo "	ethernets:" >> /etc/netplan/99_config.yaml
+	echo "		$interface_name:" >> /etc/netplan/99_config.yaml
+	echo "		addresses:" >> /etc/netplan/99_config.yaml
+	echo "			- $ip_string" >> /etc/netplan/99_config.yaml
+	echo "		gateway4: $ip_leader.1" >> /etc/netplan/99_config.yaml
+	echo "		nameservers:" >> /etc/netplan/99_config.yaml
+	echo "			search: [mydomain, otherdomain]" >> /etc/netplan/99_config.yaml
+	echo "			addresses: [$ip_leader.1, 8.8.8.8, 7.7.7.7]" >> /etc/netplan/99_config.yaml
+	sudo netplan apply
+	echo "Local IP Address is now: $new_ip"; echo ""
 }
+
 
 # Fullfillment Needed
 configure_ssh_selected() {
