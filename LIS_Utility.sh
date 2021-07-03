@@ -342,7 +342,7 @@ install_rpi_utilities() {
 	echo " "
 }
 
-# Testing Needed
+
 install_rpi_jupyter() {
 	update_selected
 	echo "Installing jupyter configuration ..."
@@ -354,21 +354,21 @@ install_rpi_jupyter() {
 	jupyter-lab --generate-config -y
 	echo "# My Jupyter Config: " >> /home/pi/.jupyter/jupyter_lab_config.py
 	echo "c.JupyterApp.open_browser = False" >> /home/pi/.jupyter/jupyter_lab_config.py
-	echo "c.JupyterApp.allow_remote_access = True" >> /home/pi/.jupyter/jupyter_lab_config.py
-	#echo "c.JupyterApp.ip = '10.0.0.X'" >> /home/pi/.jupyter/jupyter_lab_config.py &&
-	echo "c.JupyterApp.ip = 'localhost'" >> /home/pi/.jupyter/jupyter_lab_config.py
-	echo "c.JupyterApp.port = 8888" >> /home/pi/.jupyter/jupyter_lab_config.py
-	echo "c.JupyterApp.password = ''" >> /home/pi/.jupyter/jupyter_lab_config.py
+	echo "c.ServerApp.allow_remote_access = True" >> /home/pi/.jupyter/jupyter_lab_config.py
+	#echo "c.ServerApp.ip = '10.0.0.X'" >> /home/pi/.jupyter/jupyter_lab_config.py &&
+	echo "c.ServerApp.ip = 'localhost'" >> /home/pi/.jupyter/jupyter_lab_config.py
+	echo "c.ServerApp.port = 8888" >> /home/pi/.jupyter/jupyter_lab_config.py
+	echo "c.ServerApp.password = ''" >> /home/pi/.jupyter/jupyter_lab_config.py
 	echo "Jupyter Lab Configured"
 	echo " "
 	jupyter-notebook --generate-config -y
 	echo "# My Jupyter Config: " >> /home/pi/.jupyter/jupyter_notebook_config.py
 	echo "c.JupyterApp.open_browser = False" >> /home/pi/.jupyter/jupyter_notebook_config.py
-	echo "c.JupyterApp.allow_remote_access = True" >> /home/pi/.jupyter/jupyter_notebook_config.py
-	#echo "c.JupyterApp.ip = '10.0.0.X'" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
-	echo "c.JupyterApp.ip = 'localhost'" >> /home/pi/.jupyter/jupyter_notebook_config.py
-	echo "c.JupyterApp.port = 8888" >> /home/pi/.jupyter/jupyter_notebook_config.py
-	echo "c.JupyterApp.password = ''" >> /home/pi/.jupyter/jupyter_notebook_config.py
+	echo "c.ServerApp.allow_remote_access = True" >> /home/pi/.jupyter/jupyter_notebook_config.py
+	#echo "c.ServerApp.ip = '10.0.0.X'" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
+	echo "c.ServerApp.ip = 'localhost'" >> /home/pi/.jupyter/jupyter_notebook_config.py
+	echo "c.ServerApp.port = 8888" >> /home/pi/.jupyter/jupyter_notebook_config.py
+	echo "c.ServerApp.password = ''" >> /home/pi/.jupyter/jupyter_notebook_config.py
 	echo "Jupyter Notebook Configured"
 	echo " "
 }
