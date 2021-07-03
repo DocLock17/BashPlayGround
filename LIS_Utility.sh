@@ -32,33 +32,197 @@ configure_ssh_selected() {
 # Needs fullfilled
 
 install_software_selected() {
-	echo "Im installing software"
-	sleep 1
+	install_retroPie(){
+		# sudo apt install git lsb-release && \
+		sudo apt install -y git dialog unzip xmlstarlet && \
+
+		git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git && \
+
+		cd RetroPie-Setup && \
+
+		sudo ./retropie_setup.sh
+	}
+	echo "Select Software to install"
+	echo ""
+	echo "1)RetroPie         2))Back to Menu"
+	echo ""
+	until [[ $install_software_sub == [1-2] ]]; do
+        	read -p "Selection: " install_software_sub
+    	done
+
+	case $install_software_sub in
+		1) install_retroPie;;
+		2) echo "Exiting . . . "
+	esac
 }
 # Needs fullfilled
 
+install_ubuntu_nvidiaDrivers() {
+	# Install Basic Driver (unneeded!)
+	#sudo apt-get install --no-install-recommends nvidia-driver-460 - y && \
 
+	# Download and Install CUDA
+	wget https://developer.download.nvidia.com/compute/cuda/11.2.0/local_installers/cuda-repo-ubuntu2004-11-2-local_11.2.0-460.27.04-1_amd64.deb && \
+
+	# Install repository meta-data
+	# sudo dpkg -i cuda-repo-<distro>_<version>_<architecture>.deb
+	sudo dpkg -i cuda-repo-ubuntu2004-11-2-local_11.2.0-460.27.04-1_amd64.deb && \
+
+	#When installing using network repo on Ubuntu 20.04/18.04
+	sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub && \
+
+	# Download and Add Nvidia Repository
+	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin && \sud
+	sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600 && \
+
+	# Add Repo 
+	sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /" && \
+
+	# Add CUDA to the PATH
+	echo """
+	# Nvidia 460+11.2 PATH
+	export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}
+	export LD_LIBRARY_PATH=/usr/local/cuda-11.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+	""" >> ~/.bashrc && \
+	echo "" && \
+	echo "Adding cuda-11.2 to the PATH ..." && \
+
+	# Update Repositories
+	sudo apt-get update && sudo apt update && \
+
+	# Install CUDA
+	sudo apt install cuda-toolkit-11-2 -y && \
+	sudo apt install cuda -y
+}
 
 install_ubuntu_dependencies() {
-	echo "Installing Dependency"
+	echo "Installing Dependencies"
 	echo " "
+	## Install Dependency Libraries and Utilities
+	sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6 -y  
+
+	sudo apt-get install curl gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common -y  
+
+	## Install Node
+	#sudo apt-get purge nodejs npm -y  
+	curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+	sudo apt-get install -y nodejs
+
+	sudo apt-get install gvfs-bin psmisc libpango1.0-0 node.js pciutils xclip xsel figlet -y  
+
+	sudo apt-get install cmake tilix net-tools screen htop links2 elinks hddtemp lm-sensors pv -y
 }
 
 install_ubuntu_utilities() {
 	echo "Installing Utilities ..."
 	echo " "
+	sudo apt-get install micro -y
+	snap install atom --classic
+	snap install discord
+	snap install spotify
+}
+
+install_ubuntu_jupyter() {
+	echo "Installing jupyter configuration ..." &&
+	echo "" &&
+	jupyter-lab --generate-config -y &&
+	echo "c.JupyterApp.open_browser = False" >> /home/doclock17/.jupyter/jupyter_notebook_config.py &&
+	echo "c.JupyterApp.allow_remote_access = True" >> /home/doclock17/.jupyter/jupyter_notebook_config.py &&
+	#echo "c.JupyterApp.ip = '10.0.0.X'" >> /home/doclock17/.jupyter/jupyter_notebook_config.py &&
+	echo "c.JupyterApp.ip = 'localhost'" >> /home/doclock17/.jupyter/jupyter_notebook_config.py &&
+	echo "c.JupyterApp.port = 8888" >> /home/doclock17/.jupyter/jupyter_notebook_config.py &&
+	echo "c.JupyterApp.password = ''" >> /home/doclock17/.jupyter/jupyter_notebook_config.py
 }
 
 install_ubuntu_ml(){
 	install_ubuntu_myStack() {
 		install_ubuntu_dependencies
 		echo "installing myStack"
+		# Install Tools
+		#sudo python3 -m pip install --upgrade pip  
+		#echo ""  
+		#sudo python3 -m pip install virtualenv  
+		sudo apt-get install cmake -y
+		sudo apt-get install python3-pip -y 
+		sudo apt-get install python3-venv -y 
+
+		# Create venv with ssp access
+		python3 -m venv venv
+		echo "Installing virtual environment ..." 
+		source venv/bin/activate  
+
+		# Add venv to the PATH
+		echo """
+		# Add venv PATH
+		export PATH=/root/.local/bin:$PATH
+
+		""" >> ~/.bashrc  
+		echo ""  
+		echo "Adding virtual environment to the PATH ..."  
+		echo ""  
+		echo "Installing virtual environment resources ..."  
+		echo ""  
+
+		# Installs the attached packagelist
+		pip3 install -r myStack.txt
+
+		# this may also help
+		#pip3 install -r theplus.txt --ignore-installed
+		#python -m ipykernel install --user --name=venv
+		#python -m pip install jupyter
+
 		install_ubuntu_utilities
 	}
 
 	install_ubuntu_lambdaStack() {
 		install_ubuntu_dependencies
 		echo "installing LambdaStack"
+		# Add Lambda Repository
+		LAMBDA_REPO=$(mktemp)  
+		wget -O${LAMBDA_REPO} https://lambdalabs.com/static/misc/lambda-stack-repo.deb  
+		sudo dpkg -i ${LAMBDA_REPO} && rm -f ${LAMBDA_REPO}  
+
+		# Update Repositories
+		sudo apt update && sudo apt-get update  
+
+		# Install Lambda Stack
+		sudo apt-get install -y lambda-stack-cuda -y
+
+		sudo apt-get install python3-pip -y  
+		echo ""  
+		sudo apt-get install python3-venv -y  
+		echo ""  
+
+		# Create venv with ssp access
+		python3 -m venv venv --system-site-packages   
+		#--system-site-packages  
+		echo ""  
+		echo "Installing virtual environment ..."  
+		echo ""  
+		source venv/bin/activate  
+
+		# Add venv to the PATH
+		echo """
+		# Add venv PATH
+		export PATH=/root/.local/bin:$PATH
+
+		""" >> ~/.bashrc 
+		echo ""  
+		echo "Adding virtual environment to the PATH ..."  
+		echo ""  
+		echo "Installing virtual environment resources ..."  
+		echo ""  
+
+		# Installs the attached packagelist
+		python -m ipykernel install --user --name=venv
+		pip3 install -r myPlus.txt --ignore-installed
+		install_ubuntu_utilities
+	}
+
+	install_ubuntu_anacondaStack() {
+		install_ubuntu_dependencies
+		echo "installing AnacondaStack"
 		install_ubuntu_utilities
 	}
 
@@ -66,17 +230,18 @@ install_ubuntu_ml(){
 	echo ""
 	echo "Select Stack Configuration"
 	echo ""
-	echo "1)Ubuntu-myStack   2)Ubuntu-LambdaStack"
-	echo "3)Back to Menu"
+	echo "1)Ubuntu-myStack         2)Ubuntu-LambdaStack"
+	echo "3)Ubbuntu-anacondaStack  4)Back to Menu"
 	echo ""
-	until [[ $install_ubuntu_ml_selection == [1-8] ]]; do
+	until [[ $install_ubuntu_ml_selection == [1-4] ]]; do
         	read -p "Selection: " install_ubuntu_ml_selection
     	done
 
 	case $install_ubuntu_ml_selection in
 		1) install_ubuntu_myStack;;
 		2) install_ubuntu_lambdaStack;;
-		3) echo "Exiting . . . "
+		3) install_ubuntu_anacondaStack;;
+		4) echo "Exiting . . . "
 	esac
 }
 
@@ -91,6 +256,7 @@ install_ubuntu_server(){
 	echo "Installing Ubuntu Server"
 	install_ubuntu_dependencies
 }
+
 
 
 
@@ -114,11 +280,25 @@ install_rpi_dependencies() {
 install_rpi_utilities() {
 	echo "Installing Utilities ..." &&
 	echo " "
+	sudo apt-get install nodejs npm  tilix  figlet screen links2 elinks hddtemp lm-sensors pv -y
+	echo " "
 	sudo apt-get install nodejs npm screen hddtemp lm-sensors pv -y
 	echo " "
 	sudo python3 -m pip install --user --upgrade pip
 	echo " "
 	sudo python3 -m pip install --user virtualenv
+}
+
+install_rpi_jupyter() {
+	echo "Installing jupyter configuration ..." &&
+	echo "" &&
+	jupyter-lab --generate-config -y &&
+	echo "c.JupyterApp.open_browser = False" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
+	echo "c.JupyterApp.allow_remote_access = True" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
+	#echo "c.JupyterApp.ip = '10.0.0.X'" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
+	echo "c.JupyterApp.ip = 'localhost'" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
+	echo "c.JupyterApp.port = 8888" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
+	echo "c.JupyterApp.password = ''" >> /home/pi/.jupyter/jupyter_notebook_config.py
 }
 
 install_rpi_desktop(){
@@ -138,12 +318,13 @@ install_rpi_desktop(){
 	echo " " &&
 	pip3 install -r setup/packagelist.txt &&
 	echo " " &&
+	install_rpi_jupyter
 	echo "You will need to restart before changes can take effect ..." &&
 	echo " " &&
 	echo "Installation Complete!"
 	echo ""
 }
-# Needs fullfilled
+
 
 install_rpi_lockcam(){
 	install_rpi_dependencies
@@ -169,7 +350,7 @@ install_rpi_lockcam(){
 	echo "Installation Complete!"
 	echo ""
 }
-# Needs fullfilled
+
 
 install_rpi_console(){
 	install_rpi_dependencies
@@ -193,12 +374,22 @@ install_rpi_console(){
 	echo "Installation Complete!"
 	echo ""
 }
-# Needs fullfilled
+
 
 install_rpi_robot(){
 	echo "installing rpi robot"
+	# Bot Specific?
+	# sudo pip3 install pillow
+	# sudo pip3 install numpy
+	sudo apt-get install libopenjp2-7 -y &&
+	#sudo apt install libtiff -y &&
+	sudo apt install libtiff5 -y &&
+	# sudo apt-get install libatlas-base-dev
+	# sudo apt-get install python3-pip
+	# sudo pip3 install RPi.GPIO
+	install_rpi_jupyter
 }
-# Needs fullfilled
+
 
 
 
@@ -258,4 +449,3 @@ main_menu() {
 main_menu
 echo ""
 echo "End of line"
-echo "Push test"
