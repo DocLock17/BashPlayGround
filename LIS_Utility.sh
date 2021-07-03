@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 update_selected() {
+	echo " "
 	echo "Updating . . ."
 	echo " "
 	sudo apt update
