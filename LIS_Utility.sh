@@ -339,7 +339,7 @@ install_rpi_desktop(){
 	install_rpi_utilities
 	update_selected
 	echo "Installing RPi Desktop"
-	Python3 -m venv env
+	python3 -m venv env
 	echo "Installing Virtual Environment ..." &&
 	echo " " &&
 	source env/bin/activate &&
