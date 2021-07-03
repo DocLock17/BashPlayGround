@@ -328,6 +328,18 @@ install_rpi_utilities() {
 	echo " "
 	sudo python3 -m pip install --user virtualenv
 	echo " "
+	python3 -m venv env
+	echo "Installing Virtual Environment ..."
+	echo " "
+	source env/bin/activate
+	#echo " " >> ~/.bashrc &&
+	echo "export PATH=/root/.local/bin:$PATH" >> ~/.bashrc
+	echo "Adding virtual environment to the PATH ..."
+	echo " "
+	echo "Installing virtual environment resources ..."
+	echo " "
+	pip3 install -r packagelist.txt
+	echo " "
 }
 
 # Testing Needed
@@ -356,18 +368,6 @@ install_rpi_desktop(){
 	update_selected
 	echo " "
 	echo "Installing RPi Desktop"
-	echo " "
-	python3 -m venv env
-	echo "Installing Virtual Environment ..."
-	echo " "
-	source env/bin/activate
-	#echo " " >> ~/.bashrc &&
-	echo "export PATH=/root/.local/bin:$PATH" >> ~/.bashrc
-	echo "Adding virtual environment to the PATH ..."
-	echo " "
-	echo "Installing virtual environment resources ..."
-	echo " "
-	pip3 install -r packagelist.txt
 	echo " "
 	install_rpi_jupyter
 	echo "You will need to restart before changes can take effect ..."
