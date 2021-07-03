@@ -515,4 +515,4 @@ main_menu() {
 main_menu
 echo ""
 echo "sudo apt-get update && sudo apt-get upgrade -y  && sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo reboot now"
-echo ""
+echo "PUshTestLinux"
