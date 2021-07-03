@@ -258,4 +258,4 @@ main_menu() {
 main_menu
 echo ""
 echo "End of line"
-echo "Pull test"
+echo "Push test"
