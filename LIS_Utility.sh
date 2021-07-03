@@ -33,6 +33,7 @@ configure_ssh_selected() {
 
 install_software_selected() {
 	install_retroPie(){
+		update_selected
 		# sudo apt install git lsb-release && \
 		sudo apt install -y git dialog unzip xmlstarlet && \
 
@@ -42,9 +43,10 @@ install_software_selected() {
 
 		sudo ./retropie_setup.sh
 	}
+	install_software_sub=0
 	echo "Select Software to install"
 	echo ""
-	echo "1)RetroPie         2))Back to Menu"
+	echo "1)RetroPie         2)Back to Menu"
 	echo ""
 	until [[ $install_software_sub == [1-2] ]]; do
         	read -p "Selection: " install_software_sub
@@ -58,6 +60,7 @@ install_software_selected() {
 
 
 install_ubuntu_nvidiaDrivers() {
+	update_selected
 	# Install Basic Driver (unneeded!)
 	#sudo apt-get install --no-install-recommends nvidia-driver-460 - y && \
 
@@ -97,6 +100,7 @@ install_ubuntu_nvidiaDrivers() {
 }
 
 install_ubuntu_dependencies() {
+	update_selected
 	echo "Installing Dependencies"
 	echo " "
 	## Install Dependency Libraries and Utilities
@@ -115,6 +119,7 @@ install_ubuntu_dependencies() {
 }
 
 install_ubuntu_utilities() {
+	update_selected
 	echo "Installing Utilities ..."
 	echo " "
 	sudo apt-get install micro -y
@@ -124,6 +129,7 @@ install_ubuntu_utilities() {
 }
 
 install_ubuntu_jupyter() {
+	update_selected
 	echo "Installing jupyter configuration ..." &&
 	echo "" &&
 	jupyter-lab --generate-config -y &&
@@ -138,6 +144,7 @@ install_ubuntu_jupyter() {
 install_ubuntu_ml(){
 	install_ubuntu_myStack() {
 		install_ubuntu_dependencies
+		update_selected
 		echo "installing myStack"
 		# Install Tools
 		#sudo python3 -m pip install --upgrade pip  
@@ -177,6 +184,7 @@ install_ubuntu_ml(){
 
 	install_ubuntu_lambdaStack() {
 		install_ubuntu_dependencies
+		update_selected
 		echo "installing LambdaStack"
 		# Add Lambda Repository
 		LAMBDA_REPO=$(mktemp)  
@@ -222,6 +230,7 @@ install_ubuntu_ml(){
 
 	install_ubuntu_anacondaStack() {
 		install_ubuntu_dependencies
+		update_selected
 		echo "installing AnacondaStack"
 		install_ubuntu_utilities
 	}
@@ -248,6 +257,7 @@ install_ubuntu_ml(){
 
 install_ubuntu_miner(){
 	install_ubuntu_ml
+	update_selected
 	echo "Installing Cudo Miner"
 	sudo su -c "bash <( wget -qO- https://download.cudo.org/tenants/135790374f46b0107c516a5f5e13069b/5e5f800fdf87209fdf8f9b61441e53a1/linux/x64/stable/install.sh )"
 }
@@ -255,12 +265,14 @@ install_ubuntu_miner(){
 install_ubuntu_server(){
 	echo "Installing Ubuntu Server"
 	install_ubuntu_dependencies
+	update_selected
 }
 
 
 
 
 install_rpi_dependencies() {
+	update_selected
 	echo "Installing Dependency"
 	echo " "
 	sudo apt-get install software-properties-common build-essential cmake python3-dev libatlas-base-dev -y python3-pyqt5 libhdf5-dev libhdf5-103 libhdf5-dev -y
@@ -278,6 +290,7 @@ install_rpi_dependencies() {
 
 
 install_rpi_utilities() {
+	update_selected
 	echo "Installing Utilities ..." &&
 	echo " "
 	sudo apt-get install nodejs npm  tilix  figlet screen links2 elinks hddtemp lm-sensors pv -y
@@ -290,6 +303,7 @@ install_rpi_utilities() {
 }
 
 install_rpi_jupyter() {
+	update_selected
 	echo "Installing jupyter configuration ..." &&
 	echo "" &&
 	jupyter-lab --generate-config -y &&
@@ -304,6 +318,7 @@ install_rpi_jupyter() {
 install_rpi_desktop(){
 	install_rpi_dependencies
 	install_rpi_utilities
+	update_selected
 	echo "Installing RPi Desktop"
 	Python3 -m venv env
 	echo "Installing Virtual Environment ..." &&
@@ -329,6 +344,7 @@ install_rpi_desktop(){
 install_rpi_lockcam(){
 	install_rpi_dependencies
 	install_rpi_utilities
+	update_selected
 	echo "Installing RPi LockCam"
 	Python3 -m venv env
 	echo "Installing Virtual Environment ..." &&
@@ -355,6 +371,7 @@ install_rpi_lockcam(){
 install_rpi_console(){
 	install_rpi_dependencies
 	install_rpi_utilities
+	update_selected
 	echo "Installing RPi Console"
 	Python3 -m venv env
 	echo "Installing Virtual Environment ..." &&
@@ -377,6 +394,9 @@ install_rpi_console(){
 
 
 install_rpi_robot(){
+	install_rpi_dependencies
+	install_rpi_utilities
+	update_selected
 	echo "installing rpi robot"
 	# Bot Specific?
 	# sudo pip3 install pillow
