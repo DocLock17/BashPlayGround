@@ -55,7 +55,7 @@ install_software_selected() {
 		2) echo "Exiting . . . "
 	esac
 }
-# Needs fullfilled
+
 
 install_ubuntu_nvidiaDrivers() {
 	# Install Basic Driver (unneeded!)
@@ -248,9 +248,9 @@ install_ubuntu_ml(){
 
 install_ubuntu_miner(){
 	install_ubuntu_ml
-	echo " . . . NOW installing ubuntu miner"
+	echo "Installing Cudo Miner"
+	sudo su -c "bash <( wget -qO- https://download.cudo.org/tenants/135790374f46b0107c516a5f5e13069b/5e5f800fdf87209fdf8f9b61441e53a1/linux/x64/stable/install.sh )"
 }
-# Needs fullfilled
 
 install_ubuntu_server(){
 	echo "Installing Ubuntu Server"
