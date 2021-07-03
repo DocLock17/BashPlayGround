@@ -334,8 +334,8 @@ install_rpi_utilities() {
 install_rpi_jupyter() {
 	update_selected
 	echo "Installing jupyter configuration ..."
-	pip install jupyter -y
-	pip install jupyterlab -y
+	pip install jupyter
+	pip install jupyterlab
 	echo ""
 	jupyter-lab --generate-config -y
 	echo "c.JupyterApp.open_browser = False" >> /home/pi/.jupyter/jupyter_notebook_config.py
