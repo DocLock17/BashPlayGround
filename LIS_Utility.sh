@@ -385,19 +385,6 @@ install_rpi_lockcam(){
 	echo " "
 	echo "Installing RPi LockCam"
 	echo " "
-	python3 -m venv env
-	echo "Installing Virtual Environment ..."
-	echo " "
-	source env/bin/activate
-	#echo " " >> ~/.bashrc &&
-	echo "export PATH=/root/.local/bin:$PATH" >> ~/.bashrc
-	echo " "
-	echo "Adding virtual environment to the PATH ..."
-	echo " "
-	echo "Installing virtual environment resources ..."
-	echo " "
-	pip3 install -r packagelist.txt
-	echo " "
 	pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
 	echo " "
 	echo "You will need to restart before changes can take effect ..."
@@ -413,18 +400,6 @@ install_rpi_console(){
 	update_selected
 	echo " "
 	echo "Installing RPi Console"
-	python3 -m venv env
-	echo "Installing Virtual Environment ..."
-	echo " "
-	source env/bin/activate
-	#echo " " >> ~/.bashrc
-	echo "export PATH=/root/.local/bin:$PATH" >> ~/.bashrc
-	echo " "
-	echo "Adding virtual environment to the PATH ..."
-	echo " "
-	echo "Installing virtual environment resources ..."
-	echo " "
-	pip3 install -r packagelist.txt
 	echo " "
 	echo "You will need to restart before changes can take effect ..."
 	echo " "
