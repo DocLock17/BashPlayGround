@@ -352,6 +352,7 @@ install_rpi_jupyter() {
 	#pip3 install jupyterlab
 	echo ""
 	jupyter-lab --generate-config -y
+	echo "# My Jupyter Config: " >> /home/pi/.jupyter/jupyter_notebook_config.py
 	echo "c.JupyterApp.open_browser = False" >> /home/pi/.jupyter/jupyter_notebook_config.py
 	echo "c.JupyterApp.allow_remote_access = True" >> /home/pi/.jupyter/jupyter_notebook_config.py
 	#echo "c.JupyterApp.ip = '10.0.0.X'" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
@@ -448,6 +449,7 @@ install_rpi_robot(){
 	# sudo apt-get install python3-pip
 	# sudo pip3 install RPi.GPIO
 	install_rpi_jupyter
+	echo "Done"
 }
 
 
