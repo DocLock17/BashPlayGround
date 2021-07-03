@@ -300,7 +300,7 @@ install_ubuntu_server(){
 install_rpi_dependencies() {
 	update_selected
 	echo " "
-	echo "Installing Dependency"
+	echo "Installing Dependencies"
 	echo " "
 	sudo apt-get install software-properties-common build-essential cmake python3-dev libatlas-base-dev -y python3-pyqt5 libhdf5-dev libhdf5-103 libhdf5-dev -y
 	echo " "
@@ -360,7 +360,6 @@ install_rpi_desktop(){
 	source env/bin/activate &&
 	#echo " " >> ~/.bashrc &&
 	echo "export PATH=/root/.local/bin:$PATH" >> ~/.bashrc &&
-	echo " " &&
 	echo "Adding virtual environment to the PATH ..." &&
 	echo " " &&
 	echo "Installing virtual environment resources ..." &&
