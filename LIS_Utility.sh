@@ -319,7 +319,7 @@ install_rpi_dependencies() {
 # Testing Needed
 install_rpi_utilities() {
 	update_selected
-	echo "Installing Utilities ..." &&
+	echo "Installing Utilities ..."
 	echo " "
 	sudo apt-get install nodejs npm  tilix  figlet screen links2 elinks hddtemp lm-sensors pv -y
 	echo " "
@@ -334,14 +334,14 @@ install_rpi_utilities() {
 # Testing Needed
 install_rpi_jupyter() {
 	update_selected
-	echo "Installing jupyter configuration ..." &&
-	echo "" &&
-	jupyter-lab --generate-config -y &&
-	echo "c.JupyterApp.open_browser = False" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
-	echo "c.JupyterApp.allow_remote_access = True" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
+	echo "Installing jupyter configuration ..."
+	echo ""
+	jupyter-lab --generate-config -y
+	echo "c.JupyterApp.open_browser = False" >> /home/pi/.jupyter/jupyter_notebook_config.py
+	echo "c.JupyterApp.allow_remote_access = True" >> /home/pi/.jupyter/jupyter_notebook_config.py
 	#echo "c.JupyterApp.ip = '10.0.0.X'" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
-	echo "c.JupyterApp.ip = 'localhost'" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
-	echo "c.JupyterApp.port = 8888" >> /home/pi/.jupyter/jupyter_notebook_config.py &&
+	echo "c.JupyterApp.ip = 'localhost'" >> /home/pi/.jupyter/jupyter_notebook_config.py
+	echo "c.JupyterApp.port = 8888" >> /home/pi/.jupyter/jupyter_notebook_config.py
 	echo "c.JupyterApp.password = ''" >> /home/pi/.jupyter/jupyter_notebook_config.py
 	echo " "
 }
@@ -355,20 +355,20 @@ install_rpi_desktop(){
 	echo "Installing RPi Desktop"
 	echo " "
 	python3 -m venv env
-	echo "Installing Virtual Environment ..." &&
-	echo " " &&
-	source env/bin/activate &&
+	echo "Installing Virtual Environment ..."
+	echo " "
+	source env/bin/activate
 	#echo " " >> ~/.bashrc &&
-	echo "export PATH=/root/.local/bin:$PATH" >> ~/.bashrc &&
-	echo "Adding virtual environment to the PATH ..." &&
-	echo " " &&
-	echo "Installing virtual environment resources ..." &&
-	echo " " &&
-	pip3 install -r packagelist.txt &&
-	echo " " &&
+	echo "export PATH=/root/.local/bin:$PATH" >> ~/.bashrc
+	echo "Adding virtual environment to the PATH ..."
+	echo " "
+	echo "Installing virtual environment resources ..."
+	echo " "
+	pip3 install -r packagelist.txt
+	echo " "
 	install_rpi_jupyter
-	echo "You will need to restart before changes can take effect ..." &&
-	echo " " &&
+	echo "You will need to restart before changes can take effect ..."
+	echo " "
 	echo "Installation Complete!"
 	echo ""
 }
@@ -382,22 +382,22 @@ install_rpi_lockcam(){
 	echo "Installing RPi LockCam"
 	echo " "
 	Python3 -m venv env
-	echo "Installing Virtual Environment ..." &&
-	echo " " &&
-	source env/bin/activate &&
+	echo "Installing Virtual Environment ..."
+	echo " "
+	source env/bin/activate
 	#echo " " >> ~/.bashrc &&
-	echo "export PATH=/root/.local/bin:$PATH" >> ~/.bashrc &&
-	echo " " &&
-	echo "Adding virtual environment to the PATH ..." &&
-	echo " " &&
-	echo "Installing virtual environment resources ..." &&
-	echo " " &&
-	pip3 install -r setup/packagelist.txt &&
-	echo " " &&
-	pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl &&
-	echo " " &&
-	echo "You will need to restart before changes can take effect ..." &&
-	echo " " &&
+	echo "export PATH=/root/.local/bin:$PATH" >> ~/.bashrc
+	echo " "
+	echo "Adding virtual environment to the PATH ..."
+	echo " "
+	echo "Installing virtual environment resources ..."
+	echo " "
+	pip3 install -r packagelist.txt
+	echo " "
+	pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
+	echo " "
+	echo "You will need to restart before changes can take effect ..."
+	echo " "
 	echo "Installation Complete!"
 	echo ""
 }
@@ -410,20 +410,20 @@ install_rpi_console(){
 	echo " "
 	echo "Installing RPi Console"
 	Python3 -m venv env
-	echo "Installing Virtual Environment ..." &&
-	echo " " &&
-	source env/bin/activate &&
-	#echo " " >> ~/.bashrc &&
-	echo "export PATH=/root/.local/bin:$PATH" >> ~/.bashrc &&
-	echo " " &&
-	echo "Adding virtual environment to the PATH ..." &&
-	echo " " &&
-	echo "Installing virtual environment resources ..." &&
-	echo " " &&
-	pip3 install -r setup/packagelist.txt &&
-	echo " " &&
-	echo "You will need to restart before changes can take effect ..." &&
-	echo " " &&
+	echo "Installing Virtual Environment ..."
+	echo " "
+	source env/bin/activate
+	#echo " " >> ~/.bashrc
+	echo "export PATH=/root/.local/bin:$PATH" >> ~/.bashrc
+	echo " "
+	echo "Adding virtual environment to the PATH ..."
+	echo " "
+	echo "Installing virtual environment resources ..."
+	echo " "
+	pip3 install -r packagelist.txt
+	echo " "
+	echo "You will need to restart before changes can take effect ..."
+	echo " "
 	echo "Installation Complete!"
 	echo ""
 }
@@ -438,9 +438,9 @@ install_rpi_robot(){
 	# Bot Specific?
 	# sudo pip3 install pillow
 	# sudo pip3 install numpy
-	sudo apt-get install libopenjp2-7 -y &&
+	sudo apt-get install libopenjp2-7 -y
 	#sudo apt install libtiff -y &&
-	sudo apt install libtiff5 -y &&
+	sudo apt install libtiff5 -y
 	# sudo apt-get install libatlas-base-dev
 	# sudo apt-get install python3-pip
 	# sudo pip3 install RPi.GPIO
