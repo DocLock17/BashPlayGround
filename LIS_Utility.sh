@@ -114,16 +114,16 @@ configure_network_selected() {
 
 	echo "" > /etc/netplan/99_config.yaml
 	echo "network:" >> /etc/netplan/99_config.yaml
-	echo "  version: 2" >> /etc/netplan/99_config.yaml
-	echo "  renderer: networkd" >> /etc/netplan/99_config.yaml
-	echo "  ethernets:" >> /etc/netplan/99_config.yaml
+	echo "    version: 2" >> /etc/netplan/99_config.yaml
+	echo "    renderer: networkd" >> /etc/netplan/99_config.yaml
+	echo "    ethernets:" >> /etc/netplan/99_config.yaml
 	echo "      $interface_name:" >> /etc/netplan/99_config.yaml
-	echo "      addresses:" >> /etc/netplan/99_config.yaml
-	echo "        - $ip_string" >> /etc/netplan/99_config.yaml
-	echo "      gateway4: $ip_leader.1" >> /etc/netplan/99_config.yaml
-	echo "      nameservers:" >> /etc/netplan/99_config.yaml
-	echo "      search: [mydomain, otherdomain]" >> /etc/netplan/99_config.yaml
-	echo "        addresses: [$ip_leader.1, 8.8.8.8, 7.7.7.7]" >> /etc/netplan/99_config.yaml
+	echo "        addresses:" >> /etc/netplan/99_config.yaml
+	echo "          - $ip_string" >> /etc/netplan/99_config.yaml
+	echo "        gateway4: $ip_leader.1" >> /etc/netplan/99_config.yaml
+	echo "        nameservers:" >> /etc/netplan/99_config.yaml
+	echo "          search: [mydomain, otherdomain]" >> /etc/netplan/99_config.yaml
+	echo "          addresses: [$ip_leader.1, 8.8.8.8, 7.7.7.7]" >> /etc/netplan/99_config.yaml
 	sudo netplan apply
 	echo "Local IP Address is now: $new_ip"; echo ""
 }
