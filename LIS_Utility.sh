@@ -271,6 +271,8 @@ install_ubuntu_dependencies() {
 	sudo apt-get install curl gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common -y  
 
 	sudo apt install xfce4 xfce4-goodies -y
+	
+	sudo apt-get install -y nodejs 
 
 	## Install Node
 	#sudo apt-get purge nodejs npm -y  
