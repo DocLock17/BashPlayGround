@@ -336,6 +336,8 @@ install_ubuntu_ml(){
 	install_ubuntu_myStack() {
 		install_ubuntu_dependencies
 		update_selected
+		install_ubuntu_utilities
+		update_selected
 		echo "Installing myStack"
 		# Install Tools
 		#sudo python3 -m pip install --upgrade pip  
@@ -369,13 +371,14 @@ install_ubuntu_ml(){
 		#pip3 install -r theplus.txt --ignore-installed
 		#python -m ipykernel install --user --name=venv
 		#python -m pip install jupyter
-
-		install_ubuntu_utilities
+		install_ubuntu_jupyter
 		echo " "
 	}
 
 	install_ubuntu_lambdaStack() {
 		install_ubuntu_dependencies
+		update_selected
+		install_ubuntu_utilities
 		update_selected
 		echo "Installing LambdaStack"
 		echo " "
@@ -418,7 +421,7 @@ install_ubuntu_ml(){
 		# Installs the attached packagelist
 		python -m ipykernel install --user --name=venv
 		pip3 install -r myPlus.txt --ignore-installed
-		install_ubuntu_utilities
+		#install_ubuntu_jupyter
 		echo " "
 	}
 
@@ -670,4 +673,3 @@ main_menu() {
 main_menu
 echo ""
 echo "sudo apt-get update && sudo apt-get upgrade -y  && sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo reboot now"
-echo "PUshTestLinux"
