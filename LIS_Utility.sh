@@ -158,12 +158,15 @@ configure_ssh_selected() {
 	#PasswordAuthentication yes
 
 	echo "MaxSessions 5" >> /etc/ssh/sshd_config
-	echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 	echo "AllowTcpForwarding yes" >> /etc/ssh/sshd_config
-	echo "AllowUsers doclock17" >> /etc/ssh/sshd_config
 	echo "LogLevel VERBOSE" >> /etc/ssh/sshd_config
-	echo "HostKey /home/doclock17/Desktop/SSH_KEYS/SSH_KEYS" >> /etc/ssh/sshd_config
-	echo "AuthorizedKeysFile /home/doclock17/Desktop/SSH_KEYS/SSH_KEYS.pub" >> /etc/ssh/sshd_config
+	echo "AllowUsers doclock17" >> /etc/ssh/sshd_config
+
+	echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
+	
+	# This doesn't work with MAC :(
+	#echo "HostKey /home/doclock17/Desktop/SSH_KEYS/SSH_KEYS" >> /etc/ssh/sshd_config
+	#echo "AuthorizedKeysFile /home/doclock17/Desktop/SSH_KEYS/SSH_KEYS.pub" >> /etc/ssh/sshd_config
 
 	echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config
 	echo "Welcome Back Dr.Locker " >> /etc/issue.net
@@ -171,36 +174,17 @@ configure_ssh_selected() {
 	sleep 1
 	#sudo restart ssh
 	sudo systemctl restart ssh
+
+	echo "Don't forget to generate rsa keys on client system using:"
+	echo "ssh-keygen -t rsa"
+	echo ""
+	echo "Then send the keys here using:"
+	echo "ssh-copy-id -i ~/.ssh/id_rsa.pub doclock17@"$new_ip
+	echo ""
+	echo "Then shut-off password authentication:"
+	echo "sudo nano /etc/ssh/sshd_config"
+
 }
-
-#### bit of fun
-
-# ***************************************************************************
-#                             NOTICE TO USERS
-
-
-# This computer system is the private property of its owner, whether
-# individual, corporate or government.  It is for authorized use only.
-# Users (authorized or unauthorized) have no explicit or implicit
-# expectation of privacy.
-
-# Any or all uses of this system and all files on this system may be
-# intercepted, monitored, recorded, copied, audited, inspected, and
-# disclosed to your employer, to authorized site, government, and law
-# enforcement personnel, as well as authorized officials of government
-# agencies, both domestic and foreign.
-
-# By using this system, the user consents to such interception, monitoring,
-# recording, copying, auditing, inspection, and disclosure at the
-# discretion of such personnel or officials.  Unauthorized or improper use
-# of this system may result in civil and criminal penalties and
-# administrative or disciplinary action, as appropriate. By continuing to
-# use this system you indicate your awareness of and consent to these terms
-# and conditions of use. LOG OFF IMMEDIATELY if you do not agree to the
-# conditions stated in this warning.
-
-# ****************************************************************************
-
 
 install_software_selected() {
 	install_retroPie(){
