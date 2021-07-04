@@ -1,6 +1,6 @@
 async-generator==1.10
 anyio==2.0.2
-atari-py==0.2.6
+#atari-py==0.2.6
 Babel==2.9.0
 boto==2.49.0
 boto3==1.17.3

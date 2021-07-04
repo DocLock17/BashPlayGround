@@ -273,12 +273,12 @@ install_ubuntu_dependencies() {
 
 	sudo apt-get install curl gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common -y  
 
-	sudo apt install xfce4 xfce4-goodies -y
+	#sudo apt install xfce4 xfce4-goodies -y
 	
-	sudo apt-get install -y nodejs 
+	 
 
 	## Install Node
-	#sudo apt-get purge nodejs npm -y  
+	sudo apt-get purge nodejs npm -y  
 	curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 	sudo apt-get install -y nodejs
 
@@ -299,7 +299,7 @@ install_ubuntu_utilities() {
 	sudo apt-get install hddtemp -y
 	sudo apt-get install lm-sensors -y
 	sudo apt-get install pv -y
-	sudo apt install tightvncserver
+	#sudo apt install tightvncserver
 	echo " "
 }
 
@@ -407,28 +407,29 @@ install_ubuntu_ml(){
 		sudo apt-get install --yes --no-install-recommends lambda-server && \
 		sudo apt-get install --yes --no-install-recommends nvidia-450 libcuda1-450 nvidia-opencl-icd-450 && \
 		sudo apt-get install --yes --no-install-recommends lambda-stack-cuda
-
+		echo ""
+		echo "LambdaStack Installed"
+		echo ""
+		
+		echo ""  
+		echo "Installing virtual environment ..."  
+		echo "" 
 		sudo apt-get install python3-pip -y  
-		echo ""  
 		sudo apt-get install python3-venv -y  
-		echo ""  
-
 		# Create venv with ssp access
 		python3 -m venv venv --system-site-packages   
 		#--system-site-packages  
-		echo ""  
-		echo "Installing virtual environment ..."  
-		echo ""  
-		source venv/bin/activate  
+		source venv/bin/activate
 
+		echo "" 
+		echo "Adding virtual environment to the PATH ..."  
+		echo ""  
 		# Add venv to the PATH
 		echo """
 		# Add venv PATH
 		export PATH=/root/.local/bin:$PATH
 
 		""" >> ~/.bashrc 
-		echo ""  
-		echo "Adding virtual environment to the PATH ..."  
 		echo ""  
 		echo "Installing virtual environment resources ..."  
 		echo ""  
