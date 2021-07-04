@@ -174,15 +174,16 @@ configure_ssh_selected() {
 	sleep 1
 	#sudo restart ssh
 	sudo systemctl restart ssh
-
+	echo ""
 	echo "Don't forget to generate rsa keys on client system using:"
 	echo "ssh-keygen -t rsa"
 	echo ""
 	echo "Then send the keys here using:"
-	echo "ssh-copy-id -i ~/.ssh/id_rsa.pub doclock17@"$new_ip
+	echo "ssh-copy-id -i ~/.ssh/id_rsa.pub doclock17@" $(hostname -I | cut -d. -f1-4)
 	echo ""
 	echo "Then shut-off password authentication:"
 	echo "sudo nano /etc/ssh/sshd_config"
+	echo "sudo systemctl restart ssh"
 
 }
 
@@ -203,9 +204,10 @@ install_software_selected() {
 	echo ""
 	echo "1)RetroPie       2)Atom"
 	echo "3)Discord        4)Spotify"
-	echo "5)Install All    6)Back to Menu"
+	echo "5)Install All    6)Google Chrome"
+	echo "7)Back to Menu"
 	echo ""
-	until [[ $install_software_sub == [1-6] ]]; do
+	until [[ $install_software_sub == [1-7] ]]; do
         	read -p "Selection: " install_software_sub
     	done
 
@@ -214,8 +216,9 @@ install_software_selected() {
 		2) snap install atom --classic;;
 		3) snap install discord;;
 		4) snap install spotify;;
-		5) snap install atom --classic; snap install discord; snap install spotify; install_retroPie;;
-		6) echo " "; echo "Exiting . . . "; echo " ";;
+		5) wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo apt install ./google-chrome-stable_current_amd64.deb;;
+		6) snap install atom --classic; snap install discord; snap install spotify; install_retroPie; wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo apt install ./google-chrome-stable_current_amd64.deb;;
+		7) echo " "; echo "Exiting . . . "; echo " ";;
 	esac
 }
 
