@@ -338,6 +338,8 @@ install_ubuntu_ml(){
 		update_selected
 		install_ubuntu_utilities
 		update_selected
+		install_ubuntu_nvidiaDrivers
+		update_selected
 		#gsettings set org.gnome.desktop.background picture-uri file:////home/doclock17/Github/Doclock17/BashPlayGround/automaticWallpaper/smartBulb.png
 		echo "Installing myStack"
 		# Install Tools
