@@ -162,7 +162,7 @@ configure_ssh_selected() {
 	echo "LogLevel VERBOSE" >> /etc/ssh/sshd_config
 	echo "AllowUsers doclock17" >> /etc/ssh/sshd_config
 
-	echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
+	echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
 	
 	# This doesn't work with MAC :(
 	#echo "HostKey /home/doclock17/Desktop/SSH_KEYS/SSH_KEYS" >> /etc/ssh/sshd_config
