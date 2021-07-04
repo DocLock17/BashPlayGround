@@ -216,7 +216,7 @@ install_software_selected() {
 		2) snap install atom --classic;;
 		3) snap install discord;;
 		#4) snap install spotify;;
-		4) sudo apt-get install vncviewer
+		4) sudo apt-get install vncviewer;;
 		5) wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo apt install ./google-chrome-stable_current_amd64.deb;;
 		6) snap install atom --classic; snap install discord; snap install spotify; install_retroPie; wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo apt install ./google-chrome-stable_current_amd64.deb;;
 		7) echo " "; echo "Exiting . . . "; echo " ";;
