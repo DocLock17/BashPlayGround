@@ -405,12 +405,12 @@ install_ubuntu_ml(){
 		sudo apt-get --yes upgrade && \
 		echo "cudnn cudnn/license_preseed select ACCEPT" | sudo debconf-set-selections && \
 		sudo apt-get install --yes --no-install-recommends lambda-server && \
-		sudo apt-get install --yes --no-install-recommends nvidia-450 libcuda1-450 nvidia-opencl-icd-450 && \
+		sudo apt-get install --yes --no-install-recommends nvidia-465 libcuda1-465 nvidia-opencl-icd-465 && \
 		sudo apt-get install --yes --no-install-recommends lambda-stack-cuda
 		echo ""
 		echo "LambdaStack Installed"
 		echo ""
-		
+
 		echo ""  
 		echo "Installing virtual environment ..."  
 		echo "" 
