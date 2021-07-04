@@ -229,11 +229,11 @@ install_ubuntu_nvidiaDrivers() {
 	#sudo apt-get install --no-install-recommends nvidia-driver-460 - y && \
 
 	# Download and Install CUDA
-	wget https://developer.download.nvidia.com/compute/cuda/11.2.0/local_installers/cuda-repo-ubuntu2004-11-2-local_11.2.0-460.27.04-1_amd64.deb && \
+	wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda-repo-ubuntu2004-11-2-local_11.2.0-465.27.04-1_amd64.deb && \
 
 	# Install repository meta-data
 	# sudo dpkg -i cuda-repo-<distro>_<version>_<architecture>.deb
-	sudo dpkg -i cuda-repo-ubuntu2004-11-2-local_11.2.0-460.27.04-1_amd64.deb && \
+	sudo dpkg -i cuda-repo-ubuntu2004-11-2-local_11.4.0-465.27.04-1_amd64.deb && \
 
 	#When installing using network repo on Ubuntu 20.04/18.04
 	sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub && \
@@ -247,19 +247,19 @@ install_ubuntu_nvidiaDrivers() {
 
 	# Add CUDA to the PATH
 	echo """
-	# Nvidia 460+11.2 PATH
-	export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}
-	export LD_LIBRARY_PATH=/usr/local/cuda-11.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+	# Nvidia 465+11.4 PATH
+	export PATH=/usr/local/cuda-11.4/bin${PATH:+:${PATH}}
+	export LD_LIBRARY_PATH=/usr/local/cuda-11.4/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 	""" >> ~/.bashrc && \
 	echo "" && \
-	echo "Adding cuda-11.2 to the PATH ..." && \
+	echo "Adding cuda-11.4 to the PATH ..." && \
 
 	# Update Repositories
 	sudo apt-get update && sudo apt update && \
 
 	# Install CUDA
-	sudo apt install cuda-toolkit-11-2 -y && \
+	sudo apt install cuda-toolkit-11-4 -y && \
 	sudo apt install cuda -y
 	echo " "
 }
