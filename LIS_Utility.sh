@@ -205,7 +205,7 @@ install_software_selected() {
 	echo "3)Discord        4)Spotify"
 	echo "5)Install All    6)Back to Menu"
 	echo ""
-	until [[ $install_software_sub == [1-2] ]]; do
+	until [[ $install_software_sub == [1-6] ]]; do
         	read -p "Selection: " install_software_sub
     	done
 
