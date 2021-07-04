@@ -270,6 +270,8 @@ install_ubuntu_dependencies() {
 
 	sudo apt-get install curl gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common -y  
 
+	sudo apt install xfce4 xfce4-goodies -y
+
 	## Install Node
 	#sudo apt-get purge nodejs npm -y  
 	curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
@@ -292,6 +294,7 @@ install_ubuntu_utilities() {
 	sudo apt-get install hddtemp -y
 	sudo apt-get install lm-sensors -y
 	sudo apt-get install pv -y
+	sudo apt install tightvncserver
 	echo " "
 }
 
