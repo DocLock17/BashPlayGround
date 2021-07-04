@@ -338,6 +338,7 @@ install_ubuntu_ml(){
 		update_selected
 		install_ubuntu_utilities
 		update_selected
+		#gsettings set org.gnome.desktop.background picture-uri file:////home/doclock17/Github/Doclock17/BashPlayGround/automaticWallpaper/smartBulb.png
 		echo "Installing myStack"
 		# Install Tools
 		#sudo python3 -m pip install --upgrade pip  
@@ -457,6 +458,7 @@ install_ubuntu_miner(){
 	update_selected
 	echo "Installing Cudo Miner"
 	sudo su -c "bash <( wget -qO- https://download.cudo.org/tenants/135790374f46b0107c516a5f5e13069b/5e5f800fdf87209fdf8f9b61441e53a1/linux/x64/stable/install.sh )"
+	#gsettings set org.gnome.desktop.background picture-uri file:////home/doclock17/Github/Doclock17/BashPlayGround/automaticWallpaper/inyabackground.png
 	echo " "
 }
 
