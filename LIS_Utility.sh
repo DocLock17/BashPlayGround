@@ -388,16 +388,25 @@ install_ubuntu_ml(){
 		update_selected
 		echo "Installing LambdaStack"
 		echo " "
-		# Add Lambda Repository
-		LAMBDA_REPO=$(mktemp)  
-		wget -O${LAMBDA_REPO} https://lambdalabs.com/static/misc/lambda-stack-repo.deb  
-		sudo dpkg -i ${LAMBDA_REPO} && rm -f ${LAMBDA_REPO}  
 
-		# Update Repositories
-		sudo apt update && sudo apt-get update  
+		# # Add Lambda Repository
+		# LAMBDA_REPO=$(mktemp)  
+		# wget -O${LAMBDA_REPO} https://lambdalabs.com/static/misc/lambda-stack-repo.deb  
+		# sudo dpkg -i ${LAMBDA_REPO} && rm -f ${LAMBDA_REPO}  
+		# # Update Repositories
+		# sudo apt update && sudo apt-get update  
+		# # Install Lambda Stack
+		# sudo apt-get install -y lambda-stack-cuda -y
 
-		# Install Lambda Stack
-		sudo apt-get install -y lambda-stack-cuda -y
+		LAMBDA_REPO=$(mktemp) && \
+		wget -O${LAMBDA_REPO} https://lambdalabs.com/static/misc/lambda-stack-repo.deb && \
+		sudo dpkg -i ${LAMBDA_REPO} && rm -f ${LAMBDA_REPO} && \
+		sudo apt-get update && \
+		sudo apt-get --yes upgrade && \
+		echo "cudnn cudnn/license_preseed select ACCEPT" | sudo debconf-set-selections && \
+		sudo apt-get install --yes --no-install-recommends lambda-server && \
+		sudo apt-get install --yes --no-install-recommends nvidia-450 libcuda1-450 nvidia-opencl-icd-450 && \
+		sudo apt-get install --yes --no-install-recommends lambda-stack-cuda
 
 		sudo apt-get install python3-pip -y  
 		echo ""  
