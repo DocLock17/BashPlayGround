@@ -203,7 +203,7 @@ install_software_selected() {
 	echo "Select Software to install"
 	echo ""
 	echo "1)RetroPie       2)Atom"
-	echo "3)Discord        4)VNC Viewer" #4)Spotify"
+	echo "3)Discord        4)Spotify"
 	echo "5)Google Chrome  6)Install All"
 	echo "7)Back to Menu"
 	echo ""
@@ -215,8 +215,7 @@ install_software_selected() {
 		1) install_retroPie;;
 		2) snap install atom --classic;;
 		3) snap install discord;;
-		#4) snap install spotify;;
-		4) sudo apt-get install vncviewer;;
+		4) snap install spotify;;
 		5) wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo apt install ./google-chrome-stable_current_amd64.deb;;
 		6) snap install atom --classic; snap install discord; snap install spotify; install_retroPie; wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo apt install ./google-chrome-stable_current_amd64.deb;;
 		7) echo " "; echo "Exiting . . . "; echo " ";;
@@ -454,17 +453,17 @@ install_ubuntu_ml(){
 	echo "Select Stack Configuration"
 	echo ""
 	echo "1)Ubuntu-myStack         2)Ubuntu-LambdaStack"
-	echo "3)Ubuntu-anacondaStack   4)Exit Without Installing"
+	echo "3)Exit Without Installing" #Ubuntu-anacondaStack   4)
 	echo ""
-	until [[ $install_ubuntu_ml_selection == [1-4] ]]; do
+	until [[ $install_ubuntu_ml_selection == [1-3] ]]; do
         	read -p "Selection: " install_ubuntu_ml_selection
     	done
 
 	case $install_ubuntu_ml_selection in
 		1) install_ubuntu_myStack;;
 		2) install_ubuntu_lambdaStack;;
-		3) install_ubuntu_anacondaStack;;
-		4) echo " "; echo "Exiting . . . "; echo " ";;
+		3) echo " "; echo "Exiting . . . "; echo " ";;
+		#install_ubuntu_anacondaStack;; #4)
 	esac
 }
 
