@@ -131,10 +131,75 @@ configure_network_selected() {
 
 # Fullfillment Needed
 configure_ssh_selected() {
-	echo "Im configuring ssh"
+	echo "Configuring SSH"
 	echo " "
+	update_selected
+	sudo apt-get install openssh-server -y
+	sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.factory-defaults
+	sudo chmod a-w /etc/ssh/sshd_config.factory-defaults
+
+	#### Settings you might want to change
+	#Port 22
+	#AddressFamily any
+	#ListenAddress 0.0.0.0
+	#ListenAddress ::
+
+	#HostKey /etc/ssh/ssh_host_rsa_key
+	#HostKey /etc/ssh/ssh_host_ecdsa_key
+	#HostKey /etc/ssh/ssh_host_ed25519_key
+	#AuthorizedKeysFile     .ssh/authorized_keys
+
+	#AllowTcpForwarding yes
+	#X11Forwarding yes
+	#AllowUsers doclock17" >> /etc/ssh/sshd_config
+	#LogLevel VERBOSE" >> /etc/ssh/sshd_config
+
+	#MaxSessions 10
+	#PasswordAuthentication yes
+
+	echo "MaxSessions 5" >> /etc/ssh/sshd_config
+	echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
+	echo "AllowTcpForwarding yes" >> /etc/ssh/sshd_config
+	echo "AllowUsers doclock17" >> /etc/ssh/sshd_config
+	echo "LogLevel VERBOSE" >> /etc/ssh/sshd_config
+	echo "HostKey /home/doclock17/Desktop/SSH_KEYS/SSH_KEYS" >> /etc/ssh/sshd_config
+	echo "AuthorizedKeysFile /home/doclock17/Desktop/SSH_KEYS/SSH_KEYS.pub" >> /etc/ssh/sshd_config
+
+	echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config
+	echo "Welcome Back Dr.Locker " >> /etc/issue.net
+
 	sleep 1
+	#sudo restart ssh
+	sudo systemctl restart ssh
 }
+
+#### bit of fun
+
+# ***************************************************************************
+#                             NOTICE TO USERS
+
+
+# This computer system is the private property of its owner, whether
+# individual, corporate or government.  It is for authorized use only.
+# Users (authorized or unauthorized) have no explicit or implicit
+# expectation of privacy.
+
+# Any or all uses of this system and all files on this system may be
+# intercepted, monitored, recorded, copied, audited, inspected, and
+# disclosed to your employer, to authorized site, government, and law
+# enforcement personnel, as well as authorized officials of government
+# agencies, both domestic and foreign.
+
+# By using this system, the user consents to such interception, monitoring,
+# recording, copying, auditing, inspection, and disclosure at the
+# discretion of such personnel or officials.  Unauthorized or improper use
+# of this system may result in civil and criminal penalties and
+# administrative or disciplinary action, as appropriate. By continuing to
+# use this system you indicate your awareness of and consent to these terms
+# and conditions of use. LOG OFF IMMEDIATELY if you do not agree to the
+# conditions stated in this warning.
+
+# ****************************************************************************
 
 
 install_software_selected() {
