@@ -204,7 +204,7 @@ install_software_selected() {
 	echo ""
 	echo "1)RetroPie       2)Atom"
 	echo "3)Discord        4)Spotify"
-	echo "5)Install All    6)Google Chrome"
+	echo "5)Google Chrome  6)Install All"
 	echo "7)Back to Menu"
 	echo ""
 	until [[ $install_software_sub == [1-7] ]]; do
