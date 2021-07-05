@@ -76,11 +76,17 @@ install_ubuntu_nvidiaDrivers() {
  	# Download and Install CUDA
 	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
 	sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+	sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
+	sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
 	wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda-repo-ubuntu2004-11-4-local_11.4.0-470.42.01-1_amd64.deb
 	sudo dpkg -i cuda-repo-ubuntu2004-11-4-local_11.4.0-470.42.01-1_amd64.deb
 	sudo apt-key add /var/cuda-repo-ubuntu2004-11-4-local/7fa2af80.pub
 	sudo apt-get update
 	sudo apt-get -y install cuda -y
+
+	sudo apt-get install --no-install-recommends cuda-11-4 libcudnn8=8.2.1-1+cuda11.4 libcudnn8-dev=8.2.1-1+cuda11.4 -y
+	# sudo apt-get install libcudnn8=${cudnn_version}-1+${cuda_version}
+	# sudo apt-get install libcudnn8-dev=${cudnn_version}-1+${cuda_version}
 
 	echo " "
 	echo "Adding cuda-11.4 to the PATH ..." && \
@@ -96,10 +102,10 @@ install_ubuntu_nvidiaDrivers() {
 	echo "Installing Additional Packages" && \
 	echo " "
     # Install development and runtime libraries (~4GB)
-	sudo apt-get install --no-install-recommends cuda-11-0 libcudnn8=8.0.4.30-1+cuda11.0 libcudnn8-dev=8.0.4.30-1+cuda11.0
+	# sudo apt-get install --no-install-recommends cuda-11-0 libcudnn8=8.0.4.30-1+cuda11.0 libcudnn8-dev=8.0.4.30-1+cuda11.0 -y
 
 	# Install TensorRT. Requires that libcudnn8 is installed above.
-	sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 libnvinfer-dev=7.1.3-1+cuda11.0 libnvinfer-plugin7=7.1.3-1+cuda11.0
+	sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 libnvinfer-dev=7.1.3-1+cuda11.0 libnvinfer-plugin7=7.1.3-1+cuda11.0 -y
 
 	sudo apt-get install nvidia-gds -y
 	echo " "
