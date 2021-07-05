@@ -240,7 +240,7 @@ install_ubuntu_nvidiaDrivers() {
 	sudo apt install ./nvidia-machine-learning-repo-ubuntu2004_1.0.0-1_amd64.deb
 	sudo apt-get update
 
-	wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64/libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
+	wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
 	sudo apt install ./libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
 	sudo apt-get update
 	echo " "
@@ -248,9 +248,9 @@ install_ubuntu_nvidiaDrivers() {
 	echo " "
 	# Install development and runtime libraries (~4GB)
 	sudo apt-get install --no-install-recommends \
-		cuda-11-2 \
-		libcudnn8=8.1.0.30-1+cuda11.2  \
-		libcudnn8-dev=8.1.0.30-1+cuda11.2 -y
+		cuda-11-0 \
+		libcudnn8=8.1.0.30-1+cuda11.0  \
+		libcudnn8-dev=8.1.0.30-1+cuda11.0 -y
 
 	echo " "
 	echo "Reboot. Check that GPUs are visible using the command: nvidia-smi "
