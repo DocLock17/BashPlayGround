@@ -240,7 +240,7 @@ install_ubuntu_nvidiaDrivers() {
 	sudo apt install ./nvidia-machine-learning-repo-ubuntu2004_1.0.0-1_amd64.deb
 	sudo apt-get update
 
-	wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
+	wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64/libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
 	sudo apt install ./libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
 	sudo apt-get update
 	echo " "
