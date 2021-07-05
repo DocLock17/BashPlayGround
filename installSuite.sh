@@ -193,7 +193,9 @@ install_ubuntu_ml(){
 		#install_ubuntu_nvidiaDrivers
 		#update_selected
 		#gsettings set org.gnome.desktop.background picture-uri file:////home/doclock17/Github/Doclock17/BashPlayGround/automaticWallpaper/smartBulb.png
+		echo " "
 		echo "Installing myStack"
+		echo " "
 		# Install Tools
 		#sudo python3 -m pip install --upgrade pip  
 		#echo ""  
@@ -203,24 +205,28 @@ install_ubuntu_ml(){
 		sudo apt-get install python3-venv -y 
 
 		# Create venv with ssp access
+		echo " "
+		echo "Installing virtual environment ..."
+		echo " "
 		python3 -m venv venv
-		echo "Installing virtual environment ..." 
-		source venv/bin/activate  
+		source venv/bin/activate 
 
+		echo ""  
+		echo "Adding virtual environment to the PATH ..."  
+		echo "" 
 		# Add venv to the PATH
 		echo """
 		# Add venv PATH
 		export PATH=/root/.local/bin:$PATH
 
 		""" >> ~/.bashrc  
-		echo ""  
-		echo "Adding virtual environment to the PATH ..."  
-		echo ""  
+		
+		echo " " 
 		echo "Installing virtual environment resources ..."  
 		echo ""  
 
 		# Installs the attached packagelist
-		pip3 install -r myStack.txt
+		pip3 install -r myStack.txt --ignore-installed
 
 		# this may also help
 		#pip3 install -r theplus.txt --ignore-installed
