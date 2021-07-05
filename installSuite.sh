@@ -226,15 +226,15 @@ install_software_selected() {
 install_ubuntu_nvidiaDrivers() {
 	update_selected
 	# Install Basic Driver (unneeded!)
-	sudo apt-get install --no-install-recommends nvidia-driver-470 - y && \
+	sudo apt-get install --no-install-recommends nvidia-driver-465 - y
 
 	# Download and Install CUDA
 	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
 	sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
 	sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
 	sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
-	sudo apt-get update && sudo apt update -y
-	sudo apt-get -y install cuda -y
+	sudo apt-get update && sudo apt update 
+	sudo apt-get -y install cuda
 
 
 	#wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda-repo-ubuntu2004-11-2-local_11.2.0-465.27.04-1_amd64.deb && \
@@ -295,17 +295,6 @@ install_ubuntu_dependencies() {
 
 	#sudo apt install xfce4 xfce4-goodies -y
 
-	## Install Node
-	install_node(){
-		echo "Installing Dependencies"
-		echo " "
-		sudo apt-get purge nodejs npm -y  
-		curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-		sudo apt-get install -y nodejs
-		echo "Node Installed"
-		echo " "
-	}
-	install_node
 	echo "Dependecies Installed"
 	echo " "
 	
@@ -332,6 +321,19 @@ install_ubuntu_utilities() {
 
 # Currently not in use
 install_ubuntu_jupyter() {
+
+	## Install Node
+	install_node(){
+		echo "Installing Node"
+		echo " "
+		sudo apt-get purge nodejs npm -y  
+		curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+		sudo apt-get install -y nodejs
+		echo "Node Installed"
+		echo " "
+	}
+	install_node
+
 	update_selected
 	echo "Installing jupyter configuration ..."
 	pip install jupyter
@@ -413,6 +415,8 @@ install_ubuntu_ml(){
 		update_selected
 		install_ubuntu_utilities
 		update_selected
+		install_ubuntu_nvidiaDrivers
+		update selected
 		echo "Installing LambdaStack"
 		echo " "
 
@@ -432,11 +436,9 @@ install_ubuntu_ml(){
 		sudo apt-get --yes upgrade && \
 		echo "cudnn cudnn/license_preseed select ACCEPT" | sudo debconf-set-selections && \
 		sudo apt-get install --yes --no-install-recommends lambda-server
-		install_ubuntu_nvidiaDrivers
 		# sudo apt-get install --yes --no-install-recommends nvidia-driver-465
 		# sudo apt-get install --yes --no-install-recommends libcuda1-340 
 		# sudo apt-get install --yes --no-install-recommends nvidia-opencl-icd-340
-		echo "Marker"
 		sudo apt-get install --yes --no-install-recommends lambda-stack-cuda
 		echo ""
 		echo "LambdaStack Installed"
