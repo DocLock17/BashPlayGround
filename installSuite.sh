@@ -191,11 +191,16 @@ configure_ssh_selected() {
 install_ubuntu_nvidiaDrivers() {
 	echo " "
 	echo "Now Installing Nvidia Drivers"
+	echo " "
 	#update_selected
 	# Install Basic Driver (unneeded!)
+	echo " "
 	echo "Finding"
+	echo " "
 	sudo apt-get install --no-install-recommends nvidia-driver-465 -y
+	echo " "
 	echo "Errors"
+	echo " "
 
 	# Download and Install CUDA
 	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
@@ -203,10 +208,13 @@ install_ubuntu_nvidiaDrivers() {
 	sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
 	sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
 	sudo apt-get update && sudo apt update
+	echo " "
 	echo "tryna"
+	echo " "
 	sudo apt-get -y install cuda -y
+	echo " "
 	echo "finderrs"
-
+	echo " "
 
 	#wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda-repo-ubuntu2004-11-2-local_11.2.0-465.27.04-1_amd64.deb && \
 			# wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
