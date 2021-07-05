@@ -199,7 +199,7 @@ install_ubuntu_nvidiaDrivers() {
 	echo " "
 	sudo apt-get install --no-install-recommends nvidia-driver-465 -y
 	echo " "
-	echo "Errors"
+	echo "Error Check"
 	echo " "
 
 	# Download and Install CUDA
