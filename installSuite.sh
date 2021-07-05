@@ -208,7 +208,7 @@ install_ubuntu_ml(){
 		echo " "
 		echo "Installing virtual environment ..."
 		echo " "
-		python3 -m venv venv
+		python3 -m venv venv --system-site-packages
 		source venv/bin/activate 
 
 		echo ""  
@@ -226,23 +226,28 @@ install_ubuntu_ml(){
 		echo ""  
 
 		# Installs the attached packagelist
+		python -m ipykernel install --user --name=venv
 		pip3 install -r myStack.txt --ignore-installed
-
+		echo " " 
+		echo "Installing Jupyter Server ..."  
+		echo "" 
 		# this may also help
 		#pip3 install -r theplus.txt --ignore-installed
 		#python -m ipykernel install --user --name=venv
 		#python -m pip install jupyter
 		install_ubuntu_jupyter
 		echo " "
+		echo "myStack Installation Complete"
+		echo " "
 	}
 
 	install_ubuntu_lambdaStack() {
-		install_ubuntu_dependencies
-		#update_selected
-		install_ubuntu_utilities
-		#update_selected
-		#install_ubuntu_nvidiaDrivers
-		#update_selected
+		# install_ubuntu_dependencies
+		# #update_selected
+		# install_ubuntu_utilities
+		# #update_selected
+		# install_ubuntu_nvidiaDrivers
+		update_selected
 		echo "Installing LambdaStack"
 		echo " "
 
@@ -258,8 +263,7 @@ install_ubuntu_ml(){
 		LAMBDA_REPO=$(mktemp) && \
 		wget -O${LAMBDA_REPO} https://lambdalabs.com/static/misc/lambda-stack-repo.deb && \
 		sudo dpkg -i ${LAMBDA_REPO} && rm -f ${LAMBDA_REPO} && \
-		sudo apt-get update && \
-		# sudo apt-get --yes upgrade && \
+		sudo apt-get update && sudo apt-get --yes upgrade && \
 		echo "cudnn cudnn/license_preseed select ACCEPT" | sudo debconf-set-selections && \
 		#sudo apt-get install --yes --no-install-recommends lambda-server
 		# sudo apt-get install --yes --no-install-recommends nvidia-driver-465
@@ -272,7 +276,8 @@ install_ubuntu_ml(){
 
 		echo ""  
 		echo "Installing virtual environment ..."  
-		echo "" 
+		echo ""
+		sudo apt-get install cmake -y
 		sudo apt-get install python3-pip -y  
 		sudo apt-get install python3-venv -y  
 		# Create venv with ssp access
@@ -280,21 +285,23 @@ install_ubuntu_ml(){
 		#--system-site-packages  
 		source venv/bin/activate
 
-		echo "" 
-		echo "Adding virtual environment to the PATH ..."  
 		echo ""  
+		echo "Adding virtual environment to the PATH ..."  
+		echo "" 
 		# Add venv to the PATH
 		echo """
 		# Add venv PATH
 		export PATH=/root/.local/bin:$PATH
 
-		""" >> ~/.bashrc 
-		echo ""  
+		""" >> ~/.bashrc  
+		
+		echo " " 
 		echo "Installing virtual environment resources ..."  
-		echo ""  
+		echo " " 
 
 		# Installs the attached packagelist
 		python -m ipykernel install --user --name=venv
+		
 		pip3 install -r myPlus.txt --ignore-installed
 		#install_ubuntu_jupyter
 		echo " "
