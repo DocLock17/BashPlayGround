@@ -291,9 +291,10 @@ install_ubuntu_dependencies() {
 
 	sudo apt-get install curl gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common -y  
 
-	sudo apt-get install gvfs-bin psmisc libpango1.0-0 node.js pciutils xclip xsel figlet cmake -y 
+	sudo apt-get install gvfs-bin psmisc libpango1.0-0 pciutils xclip xsel figlet cmake -y 
 
 	#sudo apt install xfce4 xfce4-goodies -y
+	# node.js
 
 	echo "Dependecies Installed"
 	echo " "
