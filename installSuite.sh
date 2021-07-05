@@ -32,11 +32,11 @@ install_ubuntu_nvidiaDrivers() {
 
 	wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
 
-	sudo apt install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb -y
+	sudo apt install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
 	sudo apt-get update
 
 	wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
-	sudo apt install ./libnvinfer7_7.1.3-1+cuda11.0_amd64.deb -y
+	sudo apt install ./libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
 	sudo apt-get update
 
 	# Install development and runtime libraries (~4GB)
@@ -378,12 +378,33 @@ install_ubuntu_ml(){
 		echo " "
 	}
 
+	install_ubuntu_docker(){
+		curl https://get.docker.com | sh && sudo systemctl --now enable docker
+
+		distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \ && 
+		curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \ && 
+		curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+		## Experimental Repo
+		#curl -s -L https://nvidia.github.io/nvidia-container-runtime/experimental/$distribution/nvidia-container-runtime.list | sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
+
+		sudo apt-get update
+
+		sudo apt-get install -y nvidia-docker2
+
+		sudo systemctl restart docker
+
+		echo "Test"
+		sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+
+	}
+
 	install_ubuntu_ml_selection=0
 	echo ""
 	echo "Select Stack Configuration"
 	echo ""
 	echo "1)Ubuntu-myStack         2)Ubuntu-LambdaStack"
-	echo "3)Exit Without Installing" #Ubuntu-anacondaStack   4)
+	echo "3)Ubuntu-Docker          4)Ubuntu-anacondaStack"
+	echo "5)Exit Without Installing" 
 	echo ""
 	until [[ $install_ubuntu_ml_selection == [1-3] ]]; do
         	read -p "Selection: " install_ubuntu_ml_selection
@@ -392,7 +413,9 @@ install_ubuntu_ml(){
 	case $install_ubuntu_ml_selection in
 		1) install_ubuntu_myStack;;
 		2) install_ubuntu_lambdaStack;;
-		3) echo " "; echo "Exiting . . . "; echo " ";;
+		3) install_ubuntu_docker;;
+		4) install_ubuntu_anacondaStack;;
+		5) echo " "; echo "Exiting . . . "; echo " ";;
 		#install_ubuntu_anacondaStack;; #4)
 	esac
 }
@@ -404,6 +427,7 @@ install_ubuntu_miner(){
 	#gsettings set org.gnome.desktop.background picture-uri file:////home/doclock17/Github/Doclock17/BashPlayGround/automaticWallpaper/inyabackground.png
 	echo " "
 }
+
 
 install_ubuntu_server(){
 	echo " "
