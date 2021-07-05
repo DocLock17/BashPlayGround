@@ -291,16 +291,25 @@ install_ubuntu_dependencies() {
 
 	sudo apt-get install curl gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common -y  
 
+	sudo apt-get install gvfs-bin psmisc libpango1.0-0 node.js pciutils xclip xsel figlet cmake -y 
+
 	#sudo apt install xfce4 xfce4-goodies -y
-	
-	 
 
 	## Install Node
-	sudo apt-get purge nodejs npm -y  
-	curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-	sudo apt-get install -y nodejs
-
-	sudo apt-get install gvfs-bin psmisc libpango1.0-0 node.js pciutils xclip xsel figlet cmake -y  
+	install_node(){
+		echo "Installing Dependencies"
+		echo " "
+		sudo apt-get purge nodejs npm -y  
+		curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+		sudo apt-get install -y nodejs
+		echo "Node Installed"
+		echo " "
+	}
+	install_node
+	echo "Dependecies Installed"
+	echo " "
+	
+	 
 }
 
 install_ubuntu_utilities() {
