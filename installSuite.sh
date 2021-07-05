@@ -224,17 +224,23 @@ install_software_selected() {
 
 # Currently not in use
 install_ubuntu_nvidiaDrivers() {
-	update_selected
+	echo " "
+	echo "Now Installing Nvidia Drivers"
+	#update_selected
 	# Install Basic Driver (unneeded!)
-	sudo apt-get install --no-install-recommends nvidia-driver-465 - y
+	echo "Finding"
+	sudo apt-get install --no-install-recommends nvidia-driver-465
+	echo "Errors"
 
 	# Download and Install CUDA
 	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
 	sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
 	sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
 	sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
-	sudo apt-get update && sudo apt update 
-	sudo apt-get -y install cuda
+	sudo apt-get update && sudo apt update
+	echo "tryna"
+	sudo apt-get -y install cuda -y
+	echo "finderrs"
 
 
 	#wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda-repo-ubuntu2004-11-2-local_11.2.0-465.27.04-1_amd64.deb && \
@@ -303,7 +309,7 @@ install_ubuntu_dependencies() {
 }
 
 install_ubuntu_utilities() {
-	update_selected
+	#update_selected
 	echo "Installing Utilities ..."
 	echo " "
 	sudo apt-get install micro -y
@@ -413,11 +419,11 @@ install_ubuntu_ml(){
 
 	install_ubuntu_lambdaStack() {
 		install_ubuntu_dependencies
-		update_selected
+		#update_selected
 		install_ubuntu_utilities
-		update_selected
+		#update_selected
 		install_ubuntu_nvidiaDrivers
-		update selected
+		#update_selected
 		echo "Installing LambdaStack"
 		echo " "
 
