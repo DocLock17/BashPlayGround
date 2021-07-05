@@ -9,3 +9,8 @@ sudo apt install python3-pip
 pip3 install tensorflow
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
+
+
+https://developer.nvidia.com/rdp/cudnn-archive
+
+https://developer.nvidia.com/cuda-downloads
