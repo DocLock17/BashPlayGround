@@ -521,6 +521,7 @@ install_ubuntu_miner(){
 }
 
 install_ubuntu_server(){
+	echo " "
 	echo "Installing Ubuntu Server"
 	install_ubuntu_dependencies
 	update_selected
