@@ -16,58 +16,18 @@ update_selected() {
 
 # Currently not in use
 install_ubuntu_nvidiaDrivers() {
+	echo " "
+	echo "Removing Previous Installations" && \
+	echo " "
 
 	## Perhaps we should purge any previous pieces
-	sudo apt-get --purge remove "*cublas*" "*cufft*" "*curand*" "*cusolver*" "*cusparse*" "*npp*" "*nvjpeg*" "cuda*" "nsight*"
-	sudo apt-get --purge remove "*nvidia*"
+	sudo apt-get --purge remove "*cublas*" "*cufft*" "*curand*" "*cusolver*" "*cusparse*" "*npp*" "*nvjpeg*" "cuda*" "nsight*" -y
+	sudo apt-get --purge remove "*nvidia*" -y
 	sudo apt-get autoremove -y
-
-	# Found at https://www.tensorflow.org/install/gpu
-
-				# wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
-				# sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
-				# sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
-				# sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
-				# sudo apt-get update
-
-				# wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
-
-				# sudo apt install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
-				# sudo apt-get update
-
-				# wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
-				# sudo apt install ./libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
-				# sudo apt-get update
-
-				# # Install development and runtime libraries (~4GB)
-				# sudo apt-get install --no-install-recommends \
-				#     cuda-11-0 \
-				#     libcudnn8=8.0.4.30-1+cuda11.0  \
-				#     libcudnn8-dev=8.0.4.30-1+cuda11.0 -y
-
-				# # Reboot. Check that GPUs are visible using the command: nvidia-smi
-
-				# # Install TensorRT. Requires that libcudnn8 is installed above.
-				# sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 \
-				#     libnvinfer-dev=7.1.3-1+cuda11.0 \
-				#     libnvinfer-plugin7=7.1.3-1+cuda11.0 -y
-
-
-####
-# 	echo " "
-# 	echo "Now Installing Nvidia Drivers"
-# 	echo " "
-# 	#update_selected
-# 	# Install Basic Driver (unneeded!)
-# 	echo " "
-# 	echo "Error Check 1"
-# 	echo " "
-# 	sudo apt-get install --no-install-recommends nvidia-driver-460 -y
-# 	echo " "
-# 	echo "Error Check 2"
-# 	echo " "
-
-# 	# Download and Install CUDA
+	echo " "
+	echo "Installing Nvidia Packages" && \
+	echo " "
+ 	# Download and Install CUDA
 	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
 	sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
 	wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda-repo-ubuntu2004-11-4-local_11.4.0-470.42.01-1_amd64.deb
@@ -75,12 +35,10 @@ install_ubuntu_nvidiaDrivers() {
 	sudo apt-key add /var/cuda-repo-ubuntu2004-11-4-local/7fa2af80.pub
 	sudo apt-get update
 	sudo apt-get -y install cuda -y
-# 	echo " "
-# 	echo "Error Check 4"
-# 	echo " "
-# 	echo " "
-# 	echo "Adding cuda-11.4 to the PATH ..." && \
-# 	echo " "
+
+	echo " "
+	echo "Adding cuda-11.4 to the PATH ..." && \
+	echo " "
 	# Add CUDA to the PATH
 	echo """
 	# Nvidia 465/70+11.4 PATH
@@ -89,17 +47,15 @@ install_ubuntu_nvidiaDrivers() {
 
 	""" >> ~/.bashrc && \
 	echo " "
-
-# Maybbe add
-# Install development and runtime libraries (~4GB)
+	echo "Installing Additional Packages" && \
+	echo " "
+    # Install development and runtime libraries (~4GB)
 	sudo apt-get install --no-install-recommends \
     cuda-11-0 \
     libcudnn8=8.0.4.30-1+cuda11.0  \
     libcudnn8-dev=8.0.4.30-1+cuda11.0
 
-# Reboot. Check that GPUs are visible using the command: nvidia-smi
-
-# Install TensorRT. Requires that libcudnn8 is installed above.
+	# Install TensorRT. Requires that libcudnn8 is installed above.
 	sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 \
     libnvinfer-dev=7.1.3-1+cuda11.0 \
     libnvinfer-plugin7=7.1.3-1+cuda11.0
@@ -393,8 +349,17 @@ install_ubuntu_ml(){
 
 		sudo systemctl restart docker
 
+		sudo groupadd docker
+
+		sudo usermod -aG docker $USER
+
+		newgrp docker 
+
+		sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+		sudo chmod g+rwx "$HOME/.docker" -R
+
 		echo "Test"
-		sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+		#sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 
 	}
 
