@@ -6,8 +6,8 @@ update_selected() {
 	echo " "
 	sudo apt update
 	sudo apt-get update
-	sudo apt upgrade -y --allow-downgrades
-	sudo apt-get upgrade -y --allow-downgrades
+	sudo apt dist-upgrade -y --allow-downgrades
+	sudo apt-get dist-upgrade -y --allow-downgrades
 	sudo apt autoremove -y
 	sudo apt-get autoremove -y
 	echo "System Updated"
@@ -187,41 +187,6 @@ configure_ssh_selected() {
 
 }
 
-install_software_selected() {
-	install_retroPie(){
-		update_selected
-		# sudo apt install git lsb-release && \
-		sudo apt install -y git dialog unzip xmlstarlet && \
-
-		git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git && \
-
-		cd RetroPie-Setup && \
-
-		sudo ./retropie_setup.sh
-	}
-	install_software_sub=0
-	echo "Select Software to install"
-	echo ""
-	echo "1)RetroPie       2)Atom"
-	echo "3)Discord        4)Spotify"
-	echo "5)Google Chrome  6)Install All"
-	echo "7)Back to Menu"
-	echo ""
-	until [[ $install_software_sub == [1-7] ]]; do
-        	read -p "Selection: " install_software_sub
-    	done
-
-	case $install_software_sub in
-		1) install_retroPie;;
-		2) snap install atom --classic;;
-		3) snap install discord;;
-		4) snap install spotify;;
-		5) wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo apt install ./google-chrome-stable_current_amd64.deb;;
-		6) snap install atom --classic; snap install discord; snap install spotify; install_retroPie; wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo apt install ./google-chrome-stable_current_amd64.deb;;
-		7) echo " "; echo "Exiting . . . "; echo " ";;
-	esac
-}
-
 # Currently not in use
 install_ubuntu_nvidiaDrivers() {
 	echo " "
@@ -270,15 +235,15 @@ install_ubuntu_nvidiaDrivers() {
 	# Add Repo 
 	# sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /" && \
 
-	# # Add CUDA to the PATH
-	# echo """
-	# # Nvidia 465+11.4 PATH
-	# export PATH=/usr/local/cuda-11.4/bin${PATH:+:${PATH}}
-	# export LD_LIBRARY_PATH=/usr/local/cuda-11.4/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+	# Add CUDA to the PATH
+	echo """
+	# Nvidia 465+11.4 PATH
+	export PATH=/usr/local/cuda-11.4/bin${PATH:+:${PATH}}
+	export LD_LIBRARY_PATH=/usr/local/cuda-11.4/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
-	# """ >> ~/.bashrc && \
-	# echo "" && \
-	# echo "Adding cuda-11.4 to the PATH ..." && \
+	""" >> ~/.bashrc && \
+	echo "" && \
+	echo "Adding cuda-11.4 to the PATH ..." && \
 
 	
 
@@ -287,6 +252,44 @@ install_ubuntu_nvidiaDrivers() {
 	# sudo apt install cuda -y
 	echo " "
 }
+
+install_software_selected() {
+	install_retroPie(){
+		update_selected
+		# sudo apt install git lsb-release && \
+		sudo apt install -y git dialog unzip xmlstarlet && \
+
+		git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git && \
+
+		cd RetroPie-Setup && \
+
+		sudo ./retropie_setup.sh
+	}
+	install_software_sub=0
+	echo "Select Software to install"
+	echo ""
+	echo "1)RetroPie       2)Atom"
+	echo "3)Discord        4)Spotify"
+	echo "5)Google Chrome  6)Install All"
+	echo "7)Back to Menu"
+	echo ""
+	until [[ $install_software_sub == [1-7] ]]; do
+        	read -p "Selection: " install_software_sub
+    	done
+
+	case $install_software_sub in
+		1) install_retroPie;;
+		2) snap install atom --classic;;
+		3) snap install discord;;
+		4) install_ubuntu_nvidiaDrivers;;
+		#4) snap install spotify;;
+		5) wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo apt install ./google-chrome-stable_current_amd64.deb;;
+		6) snap install atom --classic; snap install discord; snap install spotify; install_retroPie; wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo apt install ./google-chrome-stable_current_amd64.deb;;
+		7) echo " "; echo "Exiting . . . "; echo " ";;
+	esac
+}
+
+
 
 install_ubuntu_dependencies() {
 	update_selected
@@ -422,7 +425,7 @@ install_ubuntu_ml(){
 		#update_selected
 		install_ubuntu_utilities
 		#update_selected
-		install_ubuntu_nvidiaDrivers
+		#install_ubuntu_nvidiaDrivers
 		#update_selected
 		echo "Installing LambdaStack"
 		echo " "
@@ -440,9 +443,9 @@ install_ubuntu_ml(){
 		wget -O${LAMBDA_REPO} https://lambdalabs.com/static/misc/lambda-stack-repo.deb && \
 		sudo dpkg -i ${LAMBDA_REPO} && rm -f ${LAMBDA_REPO} && \
 		sudo apt-get update && \
-		sudo apt-get --yes upgrade && \
+		# sudo apt-get --yes upgrade && \
 		echo "cudnn cudnn/license_preseed select ACCEPT" | sudo debconf-set-selections && \
-		sudo apt-get install --yes --no-install-recommends lambda-server
+		#sudo apt-get install --yes --no-install-recommends lambda-server
 		# sudo apt-get install --yes --no-install-recommends nvidia-driver-465
 		# sudo apt-get install --yes --no-install-recommends libcuda1-340 
 		# sudo apt-get install --yes --no-install-recommends nvidia-opencl-icd-340
