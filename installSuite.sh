@@ -24,7 +24,7 @@ install_ubuntu_nvidiaDrivers() {
 	echo " "
 	echo "Error Check 1"
 	echo " "
-	sudo apt-get install --no-install-recommends nvidia-driver-465 -y
+	sudo apt-get install --no-install-recommends nvidia-driver-460 -y
 	echo " "
 	echo "Error Check 2"
 	echo " "
@@ -108,7 +108,8 @@ install_ubuntu_dependencies() {
 	sudo apt-get install binutils-doc cmake-doc ninja-build gcc-multilib autoconf automake libtool flex bison gcc-doc -y
 
 	sudo apt-get install gcc-9-multilib gcc-9-doc gcc-9-locales glibc-doc python-nautilus fancontrol read-edid libdirectfb-extra -y
-
+	
+	sudo apt-get install g++ freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev -y
 	#sudo apt install xfce4 xfce4-goodies -y
 	# node.js
 	echo " "
