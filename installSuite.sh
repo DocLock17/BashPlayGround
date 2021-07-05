@@ -17,6 +17,13 @@ update_selected() {
 # Currently not in use
 install_ubuntu_nvidiaDrivers() {
 
+	## Perhaps we should purge any previous pieces
+	sudo apt-get --purge remove "*cublas*" "*cufft*" "*curand*" "*cusolver*" "*cusparse*" "*npp*" "*nvjpeg*" "cuda*" "nsight*"
+	sudo apt-get --purge remove "*nvidia*"
+	sudo apt-get autoremove -y
+
+	# Found at https://www.tensorflow.org/install/gpu
+
 	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
 	sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
 	sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
@@ -25,26 +32,25 @@ install_ubuntu_nvidiaDrivers() {
 
 	wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
 
-	sudo apt install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+	sudo apt install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb -y
 	sudo apt-get update
 
 	wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
-	sudo apt install ./libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
+	sudo apt install ./libnvinfer7_7.1.3-1+cuda11.0_amd64.deb -y
 	sudo apt-get update
 
 	# Install development and runtime libraries (~4GB)
 	sudo apt-get install --no-install-recommends \
 	    cuda-11-0 \
 	    libcudnn8=8.0.4.30-1+cuda11.0  \
-	    libcudnn8-dev=8.0.4.30-1+cuda11.0
+	    libcudnn8-dev=8.0.4.30-1+cuda11.0 -y
 
 	# Reboot. Check that GPUs are visible using the command: nvidia-smi
 
 	# Install TensorRT. Requires that libcudnn8 is installed above.
 	sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 \
 	    libnvinfer-dev=7.1.3-1+cuda11.0 \
-	    libnvinfer-plugin7=7.1.3-1+cuda11.0
-
+	    libnvinfer-plugin7=7.1.3-1+cuda11.0 -y
 
 
 ####
@@ -62,15 +68,13 @@ install_ubuntu_nvidiaDrivers() {
 # 	echo " "
 
 # 	# Download and Install CUDA
-# 	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
-# 	sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
-# 	sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
-# 	sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
-# 	sudo apt-get update && sudo apt update
-# 	echo " "
-# 	echo "Error Check 3"
-# 	echo " "
-# 	sudo apt-get -y install cuda -y
+	# wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+	# sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+	# wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda-repo-ubuntu2004-11-4-local_11.4.0-470.42.01-1_amd64.deb
+	# sudo dpkg -i cuda-repo-ubuntu2004-11-4-local_11.4.0-470.42.01-1_amd64.deb
+	# sudo apt-key add /var/cuda-repo-ubuntu2004-11-4-local/7fa2af80.pub
+	# sudo apt-get update
+	# sudo apt-get -y install cuda -y
 # 	echo " "
 # 	echo "Error Check 4"
 # 	echo " "
@@ -85,8 +89,25 @@ install_ubuntu_nvidiaDrivers() {
 
 # 	""" >> ~/.bashrc && \
 # 	echo " "
-# 	echo "Nvidia Drivers Installed" && \
-# 	echo " "
+
+## Maybbe add
+# # Install development and runtime libraries (~4GB)
+# 	sudo apt-get install --no-install-recommends \
+#     cuda-11-0 \
+#     libcudnn8=8.0.4.30-1+cuda11.0  \
+#     libcudnn8-dev=8.0.4.30-1+cuda11.0
+
+# # Reboot. Check that GPUs are visible using the command: nvidia-smi
+
+# # Install TensorRT. Requires that libcudnn8 is installed above.
+# 	sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 \
+#     libnvinfer-dev=7.1.3-1+cuda11.0 \
+#     libnvinfer-plugin7=7.1.3-1+cuda11.0
+
+	sudo apt-get install nvidia-gds -y
+	echo " "
+	echo "Nvidia Drivers Installed" && \
+	echo " "
 }
 
 install_software_selected() {
@@ -132,7 +153,7 @@ install_ubuntu_dependencies() {
 	echo " "
 	## Install Dependency Libraries and Utilities
 	sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6 -y  
-
+	
 	sudo apt-get install curl gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common gconf-defaults-service -y  
 
 	sudo apt-get install gvfs-bin psmisc libpango1.0-0 pciutils xclip xsel figlet cmake i2c-tools make-doc -y 
@@ -140,7 +161,7 @@ install_ubuntu_dependencies() {
 	sudo apt-get install binutils-doc cmake-doc ninja-build gcc-multilib autoconf automake libtool flex bison gcc-doc -y
 
 	sudo apt-get install gcc-9-multilib gcc-9-doc gcc-9-locales glibc-doc python-nautilus fancontrol read-edid libdirectfb-extra -y
-	
+
 	sudo apt-get install g++ freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev -y
 	#sudo apt install xfce4 xfce4-goodies -y
 	# node.js
@@ -281,9 +302,9 @@ install_ubuntu_ml(){
 		# #update_selected
 		# install_ubuntu_nvidiaDrivers
 		update_selected
+		echo " "
 		echo "Installing LambdaStack"
 		echo " "
-
 		# # Add Lambda Repository
 		# LAMBDA_REPO=$(mktemp)  
 		# wget -O${LAMBDA_REPO} https://lambdalabs.com/static/misc/lambda-stack-repo.deb  
@@ -307,44 +328,53 @@ install_ubuntu_ml(){
 		echo "LambdaStack Installed"
 		echo ""
 
-		echo ""  
-		echo "Installing virtual environment ..."  
-		echo ""
-		sudo apt-get install cmake -y
-		sudo apt-get install python3-pip -y  
-		sudo apt-get install python3-venv -y  
-		# Create venv with ssp access
-		python3 -m venv venv --system-site-packages   
-		#--system-site-packages  
-		source venv/bin/activate
+				# echo ""  
+				# echo "Installing virtual environment ..."  
+				# echo ""
+				# sudo apt-get install cmake -y
+				# sudo apt-get install python3-pip -y  
+				# sudo apt-get install python3-venv -y  
+				# # Create venv with ssp access
+				# python3 -m venv venv --system-site-packages   
+				# #--system-site-packages  
+				# source venv/bin/activate
 
-		echo ""  
-		echo "Adding virtual environment to the PATH ..."  
-		echo "" 
-		# Add venv to the PATH
-		echo """
-		# Add venv PATH
-		export PATH=/root/.local/bin:$PATH
+				# echo ""  
+				# echo "Adding virtual environment to the PATH ..."  
+				# echo "" 
+				# # Add venv to the PATH
+				# echo """
+				# # Add venv PATH
+				# export PATH=/root/.local/bin:$PATH
 
-		""" >> ~/.bashrc  
-		
-		echo " " 
-		echo "Installing virtual environment resources ..."  
-		echo " " 
+				# """ >> ~/.bashrc  
+				
+				# echo " " 
+				# echo "Installing virtual environment resources ..."  
+				# echo " " 
 
-		# Installs the attached packagelist
-		python -m ipykernel install --user --name=venv
-		
-		pip3 install -r myPlus.txt --ignore-installed
-		#install_ubuntu_jupyter
-		echo " "
+				# # Installs the attached packagelist
+				# python -m ipykernel install --user --name=venv
+				
+				# pip3 install -r myPlus.txt --ignore-installed
+				# #install_ubuntu_jupyter
+				# echo " "
 	}
 
 	install_ubuntu_anacondaStack() {
+		update_selected
 		#install_ubuntu_dependencies
 		#update_selected
-		#echo "installing AnacondaStack"
 		#install_ubuntu_utilities
+		#update_selected
+		sudo apt-get install nvidia-driver-460 -y
+		echo " "
+		echo "Installing Anaconda Stack"
+		echo " "
+		wget -P /tmp https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
+		bash /tmp/Anaconda3-2020.02-Linux-x86_64.sh
+		echo " "
+		echo "Installation Complete"
 		echo " "
 	}
 
