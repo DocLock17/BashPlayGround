@@ -65,10 +65,10 @@ install_ubuntu_nvidiaDrivers() {
 	#################### Install  Dependencies and Utilities ####################
 
 	# Update Ubuntu
-	sudo apt-get update && sudo apt-get dist-upgrade -y && sudo apt update && sudo apt dist-upgrade -y && sudo apt-get autoremove -y && sudo apt autoremove -y && \
+	#update_selected
 
-	# Install Basic Driver (unneeded!)
-	#sudo apt-get install --no-install-recommends nvidia-driver-460 - y && \
+	# Install Basic Driver (probably needed)
+	sudo apt-get install --no-install-recommends nvidia-driver-460 - y && \
 
 	# Download and Install CUDA
 	wget https://developer.download.nvidia.com/compute/cuda/11.2.0/local_installers/cuda-repo-ubuntu2004-11-2-local_11.2.0-460.27.04-1_amd64.deb && \
