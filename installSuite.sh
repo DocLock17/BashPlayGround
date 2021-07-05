@@ -14,7 +14,53 @@ update_selected() {
 	echo " "
 }
 
-# Currently not in use
+install_ubuntu_dependencies() {
+	update_selected
+	echo " "
+	echo "Installing Dependencies"
+	echo " "
+	## Install Dependency Libraries and Utilities
+	sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6 -y  
+	
+	sudo apt-get install curl gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common gconf-defaults-service -y  
+
+	sudo apt-get install gvfs-bin psmisc libpango1.0-0 pciutils xclip xsel figlet cmake i2c-tools make-doc -y 
+	
+	sudo apt-get install binutils-doc cmake-doc ninja-build gcc-multilib autoconf automake libtool flex bison gcc-doc -y
+
+	sudo apt-get install gcc-9-multilib gcc-9-doc gcc-9-locales glibc-doc python-nautilus fancontrol read-edid libdirectfb-extra -y
+
+	sudo apt-get install g++ freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev -y
+	#sudo apt install xfce4 xfce4-goodies -y
+	# node.js
+	echo " "
+	echo "Dependecies Installed"
+	echo " "
+	
+	 
+}
+
+install_ubuntu_utilities() {
+	#update_selected
+	echo " "
+	echo "Installing Utilities ..."
+	echo " "
+	sudo apt-get install micro -y
+	sudo apt-get install tilix -y
+	sudo apt-get install net-tools -y 
+	sudo apt-get install screen -y
+	sudo apt-get install htop -y
+	sudo apt-get install links2 -y
+	sudo apt-get install elinks -y
+	sudo apt-get install hddtemp -y
+	sudo apt-get install lm-sensors -y
+	sudo apt-get install pv -y
+	#sudo apt install tightvncserver
+	echo " "
+	echo "Utilities Installed"
+	echo " "
+}
+
 install_ubuntu_nvidiaDrivers() {
 	echo " "
 	echo "Removing Previous Installations" && \
@@ -66,105 +112,41 @@ install_ubuntu_nvidiaDrivers() {
 	echo " "
 }
 
-install_software_selected() {
-	install_retroPie(){
-		update_selected
-		# sudo apt install git lsb-release && \
-		sudo apt install -y git dialog unzip xmlstarlet && \
-
-		git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git && \
-
-		cd RetroPie-Setup && \
-
-		sudo ./retropie_setup.sh
-	}
-	install_software_sub=0
-	echo "Select Software to install"
-	echo ""
-	echo "1)RetroPie       2)Atom"
-	echo "3)Discord        4)Nvidia 465 & CUDA 11.4"
-	echo "5)Google Chrome  6)Spotify"
-	echo "7)Back to Menu"
-	echo ""
-	until [[ $install_software_sub == [1-7] ]]; do
-        	read -p "Selection: " install_software_sub
-    	done
-
-	case $install_software_sub in
-		1) install_retroPie;;
-		2) snap install atom --classic;;
-		3) snap install discord;;
-		4) install_ubuntu_nvidiaDrivers;;
-		5) wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo apt install ./google-chrome-stable_current_amd64.deb;;
-		6) snap install spotify;;
-		7) echo " "; echo "Exiting . . . "; echo " ";;
-	esac
-}
-
-
-
-install_ubuntu_dependencies() {
+install_ubuntu_server(){
+	echo " "
+	echo "Installing Ubuntu Server"
+	echo " "
+	install_ubuntu_dependencies
 	update_selected
-	echo "Installing Dependencies"
+	install_ubuntu_utilities
+	update_selected
+	install_ubuntu_nvidiaDrivers
+	update_selected
+	sudo reboot now 
 	echo " "
-	## Install Dependency Libraries and Utilities
-	sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6 -y  
-	
-	sudo apt-get install curl gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common gconf-defaults-service -y  
-
-	sudo apt-get install gvfs-bin psmisc libpango1.0-0 pciutils xclip xsel figlet cmake i2c-tools make-doc -y 
-	
-	sudo apt-get install binutils-doc cmake-doc ninja-build gcc-multilib autoconf automake libtool flex bison gcc-doc -y
-
-	sudo apt-get install gcc-9-multilib gcc-9-doc gcc-9-locales glibc-doc python-nautilus fancontrol read-edid libdirectfb-extra -y
-
-	sudo apt-get install g++ freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev -y
-	#sudo apt install xfce4 xfce4-goodies -y
-	# node.js
-	echo " "
-	echo "Dependecies Installed"
-	echo " "
-	
-	 
-}
-
-install_ubuntu_utilities() {
-	#update_selected
-	echo "Installing Utilities ..."
-	echo " "
-	sudo apt-get install micro -y
-	sudo apt-get install tilix -y
-	sudo apt-get install net-tools -y 
-	sudo apt-get install screen -y
-	sudo apt-get install htop -y
-	sudo apt-get install links2 -y
-	sudo apt-get install elinks -y
-	sudo apt-get install hddtemp -y
-	sudo apt-get install lm-sensors -y
-	sudo apt-get install pv -y
-	#sudo apt install tightvncserver
-	echo " "
-	echo "Utilities Installed"
+	echo "Ubuntu Server Installed"
 	echo " "
 }
 
-# Currently not in use
 install_ubuntu_jupyter() {
 	update_selected
 
 	## Install Node
 	install_node(){
+		echo " "
 		echo "Installing Node"
 		echo " "
 		sudo apt-get purge nodejs npm -y  
 		curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 		sudo apt-get install -y nodejs
+		echo " "
 		echo "Node Installed"
 		echo " "
 	}
 	install_node
-
+	echo " "
 	echo "Installing jupyter configuration ..."
+	echo " "
 	pip install jupyter
 	pip install jupyterlab
 	#pip3 install jupyter
@@ -194,6 +176,76 @@ install_ubuntu_jupyter() {
 }
 
 
+# Needs tested and fixed
+install_ubuntu_docker(){
+	curl https://get.docker.com | sh && sudo systemctl --now enable docker
+
+	distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \ && 
+	curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \ && 
+	curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+	## Experimental Repo
+	#curl -s -L https://nvidia.github.io/nvidia-container-runtime/experimental/$distribution/nvidia-container-runtime.list | sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
+
+	sudo apt-get update
+
+	sudo apt-get install -y nvidia-docker2
+
+	sudo systemctl restart docker
+
+	sudo groupadd docker
+
+	sudo usermod -aG docker $USER
+
+	newgrp docker 
+
+	sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+	sudo chmod g+rwx "$HOME/.docker" -R
+
+	echo "Test"
+	#sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+
+}
+
+
+
+# Needs Reorganized
+install_software_selected() {
+	install_retroPie(){
+		update_selected
+		# sudo apt install git lsb-release && \
+		sudo apt install -y git dialog unzip xmlstarlet && \
+
+		git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git && \
+
+		cd RetroPie-Setup && \
+
+		sudo ./retropie_setup.sh
+	}
+	install_software_sub=0
+	echo " "
+	echo "Select Software to install"
+	echo ""
+	echo "1)RetroPie       2)Atom"
+	echo "3)Discord        4)Nvidia 465 & CUDA 11.4"
+	echo "5)Google Chrome  6)Spotify"
+	echo "7)Back to Menu"
+	echo ""
+	until [[ $install_software_sub == [1-7] ]]; do
+        	read -p "Selection: " install_software_sub
+    	done
+
+	case $install_software_sub in
+		1) install_retroPie;;
+		2) snap install atom --classic;;
+		3) snap install discord;;
+		4) install_ubuntu_nvidiaDrivers;;
+		5) wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo apt install ./google-chrome-stable_current_amd64.deb;;
+		6) snap install spotify;;
+		7) echo " "; echo "Exiting . . . "; echo " ";;
+	esac
+}
+
+# ungoing repairs
 install_ubuntu_ml(){
 	install_ubuntu_myStack() {
 		#install_ubuntu_dependencies
@@ -334,35 +386,6 @@ install_ubuntu_ml(){
 		echo " "
 	}
 
-	install_ubuntu_docker(){
-		curl https://get.docker.com | sh && sudo systemctl --now enable docker
-
-		distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \ && 
-		curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \ && 
-		curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-		## Experimental Repo
-		#curl -s -L https://nvidia.github.io/nvidia-container-runtime/experimental/$distribution/nvidia-container-runtime.list | sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
-
-		sudo apt-get update
-
-		sudo apt-get install -y nvidia-docker2
-
-		sudo systemctl restart docker
-
-		sudo groupadd docker
-
-		sudo usermod -aG docker $USER
-
-		newgrp docker 
-
-		sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
-		sudo chmod g+rwx "$HOME/.docker" -R
-
-		echo "Test"
-		#sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
-
-	}
-
 	install_ubuntu_ml_selection=0
 	echo ""
 	echo "Select Stack Configuration"
@@ -385,24 +408,18 @@ install_ubuntu_ml(){
 	esac
 }
 
+
+
+
 install_ubuntu_miner(){
 	update_selected
+	echo " "
 	echo "Installing Cudo Miner"
+	echo " "
 	sudo su -c "bash <( wget -qO- https://download.cudo.org/tenants/135790374f46b0107c516a5f5e13069b/5e5f800fdf87209fdf8f9b61441e53a1/linux/x64/stable/install.sh )"
 	#gsettings set org.gnome.desktop.background picture-uri file:////home/doclock17/Github/Doclock17/BashPlayGround/automaticWallpaper/inyabackground.png
 	echo " "
-}
-
-
-install_ubuntu_server(){
-	echo " "
-	echo "Installing Ubuntu Server"
-	install_ubuntu_dependencies
-	install_ubuntu_utilities
-	update_selected
-	install_ubuntu_nvidiaDrivers
-	update_selected
-	sudo reboot now 
+	echo "Cudo Miner Installed"
 	echo " "
 }
 
@@ -516,10 +533,12 @@ configure_network_selected() {
 	echo "          search: [mydomain, otherdomain]" >> /etc/netplan/99_config.yaml
 	echo "          addresses: [$ip_leader.1, 8.8.8.8, 7.7.7.7]" >> /etc/netplan/99_config.yaml
 	sudo netplan apply
-	echo "Local IP Address is now: $new_ip"; echo ""
+	echo "Local IP Address is now: $new_ip"; 
+	echo " "
 }
 
 configure_ssh_selected() {
+	echo " "
 	echo "Configuring SSH"
 	echo " "
 	update_selected
@@ -576,6 +595,9 @@ configure_ssh_selected() {
 
 }
 
+
+
+
 install_rpi_dependencies() {
 	update_selected
 	echo " "
@@ -620,7 +642,6 @@ install_rpi_utilities() {
 	pip3 install -r packagelist.txt
 	echo " "
 }
-
 
 install_rpi_jupyter() {
 	update_selected
