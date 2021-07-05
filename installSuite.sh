@@ -289,7 +289,7 @@ install_ubuntu_ml(){
 
 		# Installs the attached packagelist
 		python -m ipykernel install --user --name=venv
-		pip3 install -r myStack.txt --ignore-installed
+		pip3 install -r myStackPackageList.txt --ignore-installed
 		echo " " 
 		echo "Installing Jupyter Server ..."  
 		echo "" 
