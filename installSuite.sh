@@ -121,7 +121,7 @@ install_ubuntu_server(){
 	install_ubuntu_utilities
 	update_selected
 	install_ubuntu_nvidiaDrivers
-	update_selected
+	#update_selected
 	sudo reboot now 
 	echo " "
 	echo "Ubuntu Server Installed"
