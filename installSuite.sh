@@ -194,7 +194,7 @@ install_ubuntu_nvidiaDrivers() {
 	#update_selected
 	# Install Basic Driver (unneeded!)
 	echo "Finding"
-	sudo apt-get install --no-install-recommends nvidia-driver-465
+	sudo apt-get install --no-install-recommends nvidia-driver-465 -y
 	echo "Errors"
 
 	# Download and Install CUDA
@@ -331,6 +331,8 @@ install_ubuntu_utilities() {
 	sudo apt-get install pv -y
 	#sudo apt install tightvncserver
 	echo " "
+	echo "Utilities Installed"
+	echo " "
 }
 
 # Currently not in use
@@ -380,9 +382,9 @@ install_ubuntu_jupyter() {
 
 install_ubuntu_ml(){
 	install_ubuntu_myStack() {
-		install_ubuntu_dependencies
-		update_selected
-		install_ubuntu_utilities
+		#install_ubuntu_dependencies
+		#update_selected
+		#install_ubuntu_utilities
 		update_selected
 		install_ubuntu_nvidiaDrivers
 		update_selected
