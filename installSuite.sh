@@ -181,6 +181,9 @@ install_ubuntu_nvidiaDrivers1() {
 }
 
 install_ubuntu_nvidiaDrivers() {
+	echo " "
+	echo "Add NVIDIA package repositories"
+	echo " "
 	# Add NVIDIA package repositories
 	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
 	sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
@@ -196,19 +199,44 @@ install_ubuntu_nvidiaDrivers() {
 	wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
 	sudo apt install ./libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
 	sudo apt-get update
-
+	echo " "
+	echo "Install development and runtime libraries (~4GB) "
+	echo " "
 	# Install development and runtime libraries (~4GB)
 	sudo apt-get install --no-install-recommends \
 		cuda-11-0 \
 		libcudnn8=8.0.4.30-1+cuda11.0  \
-		libcudnn8-dev=8.0.4.30-1+cuda11.0
+		libcudnn8-dev=8.0.4.30-1+cuda11.0 -y
 
+	echo " "
+	echo "Reboot. Check that GPUs are visible using the command: nvidia-smi "
+	echo " "
 	# Reboot. Check that GPUs are visible using the command: nvidia-smi
 
+	echo " "
+	echo "Install TensorRT. Requires that libcudnn8 is installed above "
+	echo " "
 	# Install TensorRT. Requires that libcudnn8 is installed above.
 	sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 \
 		libnvinfer-dev=7.1.3-1+cuda11.0 \
-		libnvinfer-plugin7=7.1.3-1+cuda11.0
+		libnvinfer-plugin7=7.1.3-1+cuda11.0 -y
+	echo " "
+	echo "Installation Complete " 
+	echo " "
+}
+
+runMe(){
+	echo " "
+	echo "Adding cuda-11 to the PATH ..." && \
+	echo " "
+	# Add CUDA to the PATH
+	echo """
+	# Nvidia 465/70+11 PATH
+	export PATH=/usr/local/cuda-11.0/bin${PATH:+:${PATH}}
+	export LD_LIBRARY_PATH=/usr/local/cuda-11.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+	""" >> ~/.bashrc && \
+	echo " "
 }
 
 install_ubuntu_server(){
@@ -222,10 +250,10 @@ install_ubuntu_server(){
 	sudo apt-get install --no-install-recommends nvidia-driver-460 -y
 	#install_ubuntu_nvidiaDrivers
 	#update_selected
-	sudo reboot now 
 	echo " "
 	echo "Ubuntu Server Installed"
 	echo " "
+	sudo reboot now 
 }
 
 install_ubuntu_jupyter() {
@@ -328,7 +356,7 @@ install_software_selected() {
 	echo "1)RetroPie       2)Atom"
 	echo "3)Discord        4)Nvidia 465 & CUDA 11.4"
 	echo "5)Google Chrome  6)Spotify"
-	echo "7)Back to Menu"
+	echo "7)runMe          8)Back to Menu"
 	echo ""
 	until [[ $install_software_sub == [1-7] ]]; do
         	read -p "Selection: " install_software_sub
@@ -341,7 +369,8 @@ install_software_selected() {
 		4) install_ubuntu_nvidiaDrivers;;
 		5) wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo apt install ./google-chrome-stable_current_amd64.deb;;
 		6) snap install spotify;;
-		7) echo " "; echo "Exiting . . . "; echo " ";;
+		7) runMe;;
+		8) echo " "; echo "Exiting . . . "; echo " ";;
 	esac
 }
 
