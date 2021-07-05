@@ -61,7 +61,7 @@ install_ubuntu_utilities() {
 	echo " "
 }
 
-install_ubuntu_nvidiaDrivers() {
+install_ubuntu_nvidiaDrivers2() {
 	#################### Install  Dependencies and Utilities ####################
 
 	# Update Ubuntu
@@ -107,7 +107,7 @@ install_ubuntu_nvidiaDrivers() {
 	# Reboot
 	sudo reboot now
 }
-install_ubuntu_nvidiaDrivers2() {
+install_ubuntu_nvidiaDrivers1() {
 	echo " "
 	echo "Removing Previous Installations" && \
 	echo " "
@@ -130,7 +130,7 @@ install_ubuntu_nvidiaDrivers2() {
 	sudo apt-get update
 	sudo apt-get -y install cuda
 
-	sudo apt-get install --no-install-recommends cuda-11-2 libcudnn8=8.2.1-1+cuda11.2 libcudnn8-dev=8.2.1-1+cuda11.2 -y
+	# sudo apt-get install --no-install-recommends cuda-11-2 libcudnn8=8.2.1-1+cuda11.2 libcudnn8-dev=8.2.1-1+cuda11.2 -y
 
 	
 
@@ -139,9 +139,9 @@ install_ubuntu_nvidiaDrivers2() {
 	echo " "
 	echo "Installing Nvidia Packages" && \
 	echo " "
-			# # Download and Install CUDA
-			# #wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
-			# #sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+			# Download and Install CUDA
+			#wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+			#sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
 			# sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
 			# sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
 
@@ -151,16 +151,16 @@ install_ubuntu_nvidiaDrivers2() {
 			# sudo apt-get update
 			# sudo apt-get -y install cuda -y
 
-			# #sudo apt-get install --no-install-recommends cuda-11-4 libcudnn8=8.2.1-1+cuda11.4 libcudnn8-dev=8.2.1-1+cuda11.4 -y
-			# # sudo apt-get install libcudnn8=${cudnn_version}-1+${cuda_version}
-			# # sudo apt-get install libcudnn8-dev=${cudnn_version}-1+${cuda_version}
+			#sudo apt-get install --no-install-recommends cuda-11-4 libcudnn8=8.2.1-1+cuda11.4 libcudnn8-dev=8.2.1-1+cuda11.4 -y
+			# sudo apt-get install libcudnn8=${cudnn_version}-1+${cuda_version}
+			# sudo apt-get install libcudnn8-dev=${cudnn_version}-1+${cuda_version}
 
 	echo " "
-	echo "Adding cuda-11.4 to the PATH ..." && \
+	echo "Adding cuda-11 to the PATH ..." && \
 	echo " "
 	# Add CUDA to the PATH
 	echo """
-	# Nvidia 465/70+11.4 PATH
+	# Nvidia 465/70+11 PATH
 	export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}
 	export LD_LIBRARY_PATH=/usr/local/cuda-11.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
@@ -168,11 +168,11 @@ install_ubuntu_nvidiaDrivers2() {
 	echo " "
 	echo "Installing Additional Packages" && \
 	echo " "
-    # Install development and runtime libraries (~4GB)
-	# sudo apt-get install --no-install-recommends cuda-11-0 libcudnn8=8.0.4.30-1+cuda11.0 libcudnn8-dev=8.0.4.30-1+cuda11.0 -y
+    Install development and runtime libraries (~4GB)
+	sudo apt-get install --no-install-recommends cuda-11-0 libcudnn8=8.0.4.30-1+cuda11.0 libcudnn8-dev=8.0.4.30-1+cuda11.0 -y
 
-	# Install TensorRT. Requires that libcudnn8 is installed above.
-	#sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 libnvinfer-dev=7.1.3-1+cuda11.0 libnvinfer-plugin7=7.1.3-1+cuda11.0 -y
+	Install TensorRT. Requires that libcudnn8 is installed above.
+	sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 libnvinfer-dev=7.1.3-1+cuda11.0 libnvinfer-plugin7=7.1.3-1+cuda11.0 -y
 
 	sudo apt-get install nvidia-gds -y
 	echo " "
@@ -188,7 +188,7 @@ install_ubuntu_server(){
 	update_selected
 	install_ubuntu_utilities
 	update_selected
-	sudo apt-get install --no-install-recommends nvidia-driver-460 -y
+	sudo apt-get install --no-install-recommends nvidia-driver-450 -y
 	#install_ubuntu_nvidiaDrivers
 	#update_selected
 	sudo reboot now 
