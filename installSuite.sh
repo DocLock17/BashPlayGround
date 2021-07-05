@@ -239,10 +239,12 @@ install_ubuntu_nvidiaDrivers() {
 
 	sudo apt install ./nvidia-machine-learning-repo-ubuntu2004_1.0.0-1_amd64.deb
 	sudo apt-get update
-
-	wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64/libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
-	sudo apt install ./libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
+	wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64/libnccl-dev_2.8.3-1+cuda11.2_amd64.deb
+	sudo apt install ./libnccl-dev_2.8.3-1+cuda11.2_amd64.deb
 	sudo apt-get update
+	#wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64/libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
+	#sudo apt install ./libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
+	#sudo apt-get update
 	echo " "
 	echo "Install development and runtime libraries (~4GB) "
 	echo " "
@@ -257,13 +259,13 @@ install_ubuntu_nvidiaDrivers() {
 	echo " "
 	# Reboot. Check that GPUs are visible using the command: nvidia-smi
 
-	echo " "
-	echo "Install TensorRT. Requires that libcudnn8 is installed above "
-	echo " "
+	#echo " "
+	#echo "Install TensorRT. Requires that libcudnn8 is installed above "
+	#echo " "
 	# Install TensorRT. Requires that libcudnn8 is installed above.
-	sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 \
-		libnvinfer-dev=7.1.3-1+cuda11.0 \
-		libnvinfer-plugin7=7.1.3-1+cuda11.0 -y
+	#sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 \
+	#	libnvinfer-dev=7.1.3-1+cuda11.0 \
+	#	libnvinfer-plugin7=7.1.3-1+cuda11.0 -y
 	echo " "
 	echo "Installation Complete " 
 	echo " "
