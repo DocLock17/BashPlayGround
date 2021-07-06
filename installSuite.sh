@@ -571,7 +571,7 @@ install_ubuntu_ml(){
 		echo "Lambda Stack Installed"
 		echo " "
 		sleep 5
-		sudo reboot
+		#sudo reboot
 	}
 
 	install_ubuntu_lambdaStackOld() {
