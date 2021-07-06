@@ -42,3 +42,10 @@ network:
               
 # true location of network gui settings              
 /etc/NetworkManager/system-connections
+
+
+W: Failed to fetch http://archive.lambdalabs.com/ubuntu/dists/focal/InRelease  Temporary failure resolving 'archive.lambdalabs.com'
+W: Some index files failed to download. They have been ignored, or old ones used instead.
+Err:1 http://archive.lambdalabs.com/ubuntu focal InRelease                                          
+  Something wicked happened resolving 'archive.lambdalabs.com:http' (-5 - No address associated with hostname)
+
