@@ -225,23 +225,29 @@ install_ubuntu_nvidiaDrivers_Google_recommeded() {
 	echo " "
 }
 install_ubuntu_nvidiaDrivers() {
+	# Perhaps we should purge any previous pieces
+	sudo apt-get --purge remove "*cublas*" "*cufft*" "*curand*" "*cusolver*" "*cusparse*" "*npp*" "*nvjpeg*" "cuda*" "nsight*" -y
+	sudo apt-get --purge remove "*nvidia*" -y
+	sudo apt-get autoremove -y
+	
 	echo " "
 	echo "Add NVIDIA package repositories"
 	echo " "
 	# Add NVIDIA package repositories
 	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
 	sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
-	sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
-	sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+	
+	wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda-repo-ubuntu2004-11-4-local_11.4.0-470.42.01-1_amd64.deb
+	sudo dpkg -i cuda-repo-ubuntu2004-11-4-local_11.4.0-470.42.01-1_amd64.deb
+	sudo apt-key add /var/cuda-repo-ubuntu2004-11-4-local/7fa2af80.pub
 	sudo apt-get update
+	sudo apt-get -y install cuda
+	
 
 	wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64/nvidia-machine-learning-repo-ubuntu2004_1.0.0-1_amd64.deb
-
 	sudo apt install ./nvidia-machine-learning-repo-ubuntu2004_1.0.0-1_amd64.deb
 	sudo apt-get update
-	#wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64/libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
-	#sudo apt install ./libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
-	#sudo apt-get update
+	
 	echo " "
 	echo "Install development and runtime libraries (~4GB) "
 	echo " "
@@ -253,16 +259,6 @@ install_ubuntu_nvidiaDrivers() {
 
 	echo " "
 	echo "Reboot. Check that GPUs are visible using the command: nvidia-smi "
-	echo " "
-	# Reboot. Check that GPUs are visible using the command: nvidia-smi
-
-	#echo " "
-	#echo "Install TensorRT. Requires that libcudnn8 is installed above "
-	#echo " "
-	# Install TensorRT. Requires that libcudnn8 is installed above.
-	#sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 \
-	#	libnvinfer-dev=7.1.3-1+cuda11.0 \
-	#	libnvinfer-plugin7=7.1.3-1+cuda11.0 -y
 	echo " "
 	echo "Installation Complete " 
 	echo " "
