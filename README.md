@@ -5,9 +5,9 @@ mkdir Github && cd Github && mkdir DocLock17 && cd DocLock17 && sudo apt-get ins
 
 
 
-sudo apt install python3-pip && pip3 install tensorflow
+sudo apt install python3-pip && pip3 install tensorflow -y
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
+export PATH=/usr/local/cuda-11.4/bin${PATH:+:${PATH}}
 
 
 https://developer.nvidia.com/rdp/cudnn-archive
