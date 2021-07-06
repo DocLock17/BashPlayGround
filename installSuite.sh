@@ -411,6 +411,10 @@ install_ubuntu_jupyter() {
 
 # Needs tested and fixed
 install_ubuntu_docker(){
+
+	# single shot installation of docker?
+	#curl https://get.docker.com | sh && sudo systemctl --now enable docker
+	
 	# Install Docker prerequisits
 	sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release gnupg-agent software-properties-common -y && \
 	
@@ -429,14 +433,32 @@ install_ubuntu_docker(){
 	# Test Installation
 	#sudo docker run hello-world
 	#sudo docker run -it ubuntu bash
+	
+	sleep 3
+	
+	sudo systemctl restart docker
+	
+	# Post installation actions
+	sudo groupadd docker
+
+	sudo usermod -aG docker $USER
+
+	newgrp docker
+	
+	# To FIX: 
+	# WARNING: Error loading config file: /home/user/.docker/config.json - stat /home/user/.docker/config.json: permission denied
+	# USE
+	#sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+	#sudo chmod g+rwx "$HOME/.docker" -R
+	
 }
 	
 install_nvidia_docker_tools(){
-	
-	curl https://get.docker.com | sh && sudo systemctl --now enable docker
+	# single shot installation of docker?
+	#curl https://get.docker.com | sh && sudo systemctl --now enable docker
 
-	distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \ && 
-	curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \ && 
+	distribution=$(. /etc/os-release;echo $ID$VERSION_ID) 
+	curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
 	curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 	## Experimental Repo
 	#curl -s -L https://nvidia.github.io/nvidia-container-runtime/experimental/$distribution/nvidia-container-runtime.list | sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
@@ -445,19 +467,12 @@ install_nvidia_docker_tools(){
 
 	sudo apt-get install -y nvidia-docker2
 
+	sleep 3
+	
 	sudo systemctl restart docker
 
-	sudo groupadd docker
-
-	sudo usermod -aG docker $USER
-
-	newgrp docker 
-
-	sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
-	sudo chmod g+rwx "$HOME/.docker" -R
-
 	echo "Test"
-	#sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+	docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 
 }
 
