@@ -21,3 +21,6 @@ E: Failed to fetch http://us.archive.ubuntu.com/ubuntu/pool/universe/i/intel-ips
 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
 doclock17@LISMB-1:~$ 
 
+sudo add-apt-repository restricted
+sudo add-apt-repository multiverse
+sudo add-apt-repository universe
