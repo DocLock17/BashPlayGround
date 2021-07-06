@@ -564,7 +564,7 @@ install_ubuntu_ml(){
 		sudo apt-get --yes upgrade && \
 		echo "cudnn cudnn/license_preseed select ACCEPT" | sudo debconf-set-selections && \
 		sudo apt-get install --yes --no-install-recommends lambda-server && \
-		sudo apt-get install --yes --no-install-recommends nvidia-450 libcuda1-450 nvidia-opencl-icd-450 && \
+		sudo apt-get install --yes --no-install-recommends nvidia-460 libcuda1-460 nvidia-opencl-icd-460 && \
 		sudo apt-get install --yes --no-install-recommends lambda-stack-cuda
 		sleep 1
 		echo " "
