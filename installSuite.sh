@@ -179,7 +179,6 @@ install_ubuntu_nvidiaDrivers1() {
 	echo "Nvidia Drivers Installed" && \
 	echo " "
 }
-
 install_ubuntu_nvidiaDrivers_Google_recommeded() {
 	echo " "
 	echo "Add NVIDIA package repositories"
@@ -227,11 +226,11 @@ install_ubuntu_nvidiaDrivers_Google_recommeded() {
 # Nvidia driver-460 & CUDA-11.2 & cuDNN-8.1.1
 install_ubuntu_nvidiaDrivers() {
 	# Perhaps we should purge any previous pieces
-	sudo apt-get --purge remove "*cublas*" "*cufft*" "*curand*" "*cusolver*" "*cusparse*" "*npp*" "*nvjpeg*" "cuda*" "nsight*" -y
-	sudo apt-get --purge remove "*nvidia*" -y
-	sudo apt-get autoremove -y
+	#sudo apt-get --purge remove "*cublas*" "*cufft*" "*curand*" "*cusolver*" "*cusparse*" "*npp*" "*nvjpeg*" "cuda*" "nsight*" -y
+	#sudo apt-get --purge remove "*nvidia*" -y
+	#sudo apt-get autoremove -y
 	
-	sudo apt-get nvidia-driver-460 -y
+	#sudo apt-get nvidia-driver-460 -y
 	
 	# Nvidia driver-460 & CUDA-11.2 & cuDNN-8.1.1
 	echo " "
@@ -310,16 +309,7 @@ install_ubuntu_nvidiaDrivers() {
 	echo " "
 }
 runMe(){
-# 	echo " "
-# 	echo "Adding cuda-11 to the PATH ..." && \
-# 	echo " "
-# 	# Add CUDA to the PATH
-# 	echo """
-# 	# Nvidia 465/70+11 PATH
-# 	export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}
 	echo ""
-# 	""" >> ~/.bashrc && \
-# 	echo " "
 }
 
 install_ubuntu_server(){
