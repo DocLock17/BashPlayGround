@@ -411,6 +411,27 @@ install_ubuntu_jupyter() {
 
 # Needs tested and fixed
 install_ubuntu_docker(){
+	# Install Docker prerequisits
+	sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release gnupg-agent software-properties-common -y &&\
+	
+	# Get docker official key
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+	
+	# Set up stable repository
+	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	
+	# Update repos
+	sudo apt-get update
+	
+	# Install Docker
+	sudo apt-get install docker-ce docker-ce-cli containerd.io
+	
+	# Test Installation
+	sudo docker run hello-world
+	
+	
+	
+	
 	curl https://get.docker.com | sh && sudo systemctl --now enable docker
 
 	distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \ && 
