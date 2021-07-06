@@ -38,3 +38,7 @@ network:
           addresses: [8.8.8.8, 8.8.4.4, 7.7.7.7, 10.0.0.1]
 
               search: [mydomain, otherdomain]
+              dfd
+              
+# true location of network gui settings              
+/etc/NetworkManager/system-connections
