@@ -254,7 +254,7 @@ install_ubuntu_nvidiaDrivers() {
 
 	sudo apt-get update
 	sudo apt-get -y install cuda -y
-	sudo apt install nvidia-cuda-toolkit -y
+	sudo apt install cuda-toolkit-11-2 -y
 	
 	# Add Selected cuDNN Installation
 	# secure cuDNN
