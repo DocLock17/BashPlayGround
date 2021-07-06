@@ -246,9 +246,9 @@ install_ubuntu_nvidiaDrivers() {
 	sudo dpkg -i cuda-repo-ubuntu2004-11-2-local_11.2.0-460.27.04-1_amd64.deb
 	sudo apt-key add /var/cuda-repo-ubuntu2004-11-2-local/7fa2af80.pub
 	
-# 	#11.4 <-470 <-8.2.1
-# 	wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda-repo-ubuntu2004-11-4-local_11.4.0-470.42.01-1_amd64.deb
-# 	sudo dpkg -i cuda-repo-ubuntu2004-11-4-local_11.4.0-470.42.01-1_amd64.deb
+	# 	#11.4 <-470 <-8.2.1
+	# 	wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda-repo-ubuntu2004-11-4-local_11.4.0-470.42.01-1_amd64.deb
+	# 	sudo dpkg -i cuda-repo-ubuntu2004-11-4-local_11.4.0-470.42.01-1_amd64.deb
 
 
 	sudo apt-get update
@@ -279,27 +279,27 @@ install_ubuntu_nvidiaDrivers() {
 	""" >> ~/.bashrc && \
 	echo " "
 
-# 	wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64/nvidia-machine-learning-repo-ubuntu2004_1.0.0-1_amd64.deb
-# 	sudo apt install ./nvidia-machine-learning-repo-ubuntu2004_1.0.0-1_amd64.deb
-# 	sudo apt-get update
-	
-# 	wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
-# 	sudo apt install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
-# 	sudo apt-get update
-	
-# 	# for tensor RT
-# # 	wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/libnvinfer7_7.1.3-1+cuda11.2_amd64.deb
-# # 	sudo apt install ./libnvinfer7_7.1.3-1+cuda11.2_amd64.deb
-# # 	sudo apt-get update
-	
-# 	echo " "
-# 	echo "Install development and runtime libraries (~4GB) "
-# 	echo " "
-# # 	# Install development and runtime libraries (~4GB)
-# # 	sudo apt-get install --no-install-recommends \
-# # 		cuda-11-2 \
-# # 		libcudnn8.0.4.30  \
-# # 		libcudnn8.0.4.30-dev -y
+	# 	wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64/nvidia-machine-learning-repo-ubuntu2004_1.0.0-1_amd64.deb
+	# 	sudo apt install ./nvidia-machine-learning-repo-ubuntu2004_1.0.0-1_amd64.deb
+	# 	sudo apt-get update
+		
+	# 	wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+	# 	sudo apt install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+	# 	sudo apt-get update
+		
+	# 	# for tensor RT
+	# # 	wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/libnvinfer7_7.1.3-1+cuda11.2_amd64.deb
+	# # 	sudo apt install ./libnvinfer7_7.1.3-1+cuda11.2_amd64.deb
+	# # 	sudo apt-get update
+		
+	# 	echo " "
+	# 	echo "Install development and runtime libraries (~4GB) "
+	# 	echo " "
+	# # 	# Install development and runtime libraries (~4GB)
+	# # 	sudo apt-get install --no-install-recommends \
+	# # 		cuda-11-2 \
+	# # 		libcudnn8.0.4.30  \
+	# # 		libcudnn8.0.4.30-dev -y
 	
 
 	echo " "
@@ -308,6 +308,7 @@ install_ubuntu_nvidiaDrivers() {
 	echo "Installation Complete " 
 	echo " "
 }
+
 runMe(){
 	echo ""  
 	echo "Installing virtual environment ..."  
@@ -565,9 +566,11 @@ install_ubuntu_ml(){
 		sudo apt-get install --yes --no-install-recommends lambda-server && \
 		sudo apt-get install --yes --no-install-recommends nvidia-450 libcuda1-450 nvidia-opencl-icd-450 && \
 		sudo apt-get install --yes --no-install-recommends lambda-stack-cuda
+		sleep 1
 		echo " "
 		echo "Lambda Stack Installed"
 		echo " "
+		sleep 5
 		sudo reboot
 	}
 
