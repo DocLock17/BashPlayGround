@@ -285,7 +285,8 @@ install_ubuntu_server(){
 	update_selected
 	install_ubuntu_utilities
 	update_selected
-	sudo apt-get install --no-install-recommends nvidia-driver-460 -y
+	sudo apt-get install --no-install-recommends nvidia-driver-450 -y
+	#sudo apt-get install --no-install-recommends nvidia-driver-460 -y
 	#install_ubuntu_nvidiaDrivers
 	#update_selected
 	echo " "
