@@ -428,6 +428,7 @@ install_ubuntu_docker(){
 	
 	# Test Installation
 	#sudo docker run hello-world
+	#sudo docker run -it ubuntu bash
 }
 	
 install_nvidia_docker_tools(){
