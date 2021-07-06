@@ -309,7 +309,37 @@ install_ubuntu_nvidiaDrivers() {
 	echo " "
 }
 runMe(){
+	echo ""  
+	echo "Installing virtual environment ..."  
 	echo ""
+	sudo apt-get install cmake -y
+	sudo apt-get install python3-pip -y  
+	sudo apt-get install python3-venv -y  
+	# Create venv with ssp access
+	python3 -m venv venv --system-site-packages   
+	#--system-site-packages  
+	source venv/bin/activate
+
+	echo ""  
+	echo "Adding virtual environment to the PATH ..."  
+	echo "" 
+	# Add venv to the PATH
+	echo """
+	# Add venv PATH
+	export PATH=/root/.local/bin:$PATH
+
+	""" >> ~/.bashrc  
+	
+	echo " " 
+	echo "Installing virtual environment resources ..."  
+	echo " " 
+
+	# Installs the attached packagelist
+	python -m ipykernel install --user --name=venv
+	
+	pip3 install -r myPlus.txt --ignore-installed
+	#install_ubuntu_jupyter
+	echo " "
 }
 
 install_ubuntu_server(){
@@ -505,21 +535,24 @@ install_ubuntu_ml(){
 		echo "myStack Installation Complete"
 		echo " "
 	}
+
 	install_lambda_stackOld() {
-	echo " "
-	echo "Installing Lambda Stack"
-	echo " "
-	# Installs lambda stack but currently appears to be broken
-  	LAMBDA_REPO=$(mktemp) && \
-  	wget -O${LAMBDA_REPO} https://lambdalabs.com/static/misc/lambda-stack-repo.deb && \
-  	sudo dpkg -i ${LAMBDA_REPO} && rm -f ${LAMBDA_REPO} && \
-  	sudo apt-get update && sudo apt-get install -y lambda-stack-cuda
-  	sudo reboot
-	echo " "
-	echo "Lambda Stack Installed"
-	echo " "
-}
-	install_lubuntu_lambdaStack(){
+		echo " "
+		echo "Installing Lambda Stack"
+		echo " "
+		# Installs lambda stack but currently appears to be broken
+		LAMBDA_REPO=$(mktemp) && \
+		wget -O${LAMBDA_REPO} https://lambdalabs.com/static/misc/lambda-stack-repo.deb && \
+		sudo dpkg -i ${LAMBDA_REPO} && rm -f ${LAMBDA_REPO} && \
+		sudo apt-get update && sudo apt-get install -y lambda-stack-cuda
+		echo " "
+		echo "Lambda Stack Installed"
+		echo " "
+		sleep 2
+		sudo reboot
+	}
+
+	install_ubuntu_lambdaStack(){
 		echo " "
 		echo "Installing Lambda Stack"
 		echo " "
@@ -537,6 +570,7 @@ install_ubuntu_ml(){
 		echo " "
 		sudo reboot
 	}
+
 	install_ubuntu_lambdaStackOld() {
 		# install_ubuntu_dependencies
 		# #update_selected
@@ -570,37 +604,6 @@ install_ubuntu_ml(){
 		echo "LambdaStack Installed"
 		echo ""
 
-				# echo ""  
-				# echo "Installing virtual environment ..."  
-				# echo ""
-				# sudo apt-get install cmake -y
-				# sudo apt-get install python3-pip -y  
-				# sudo apt-get install python3-venv -y  
-				# # Create venv with ssp access
-				# python3 -m venv venv --system-site-packages   
-				# #--system-site-packages  
-				# source venv/bin/activate
-
-				# echo ""  
-				# echo "Adding virtual environment to the PATH ..."  
-				# echo "" 
-				# # Add venv to the PATH
-				# echo """
-				# # Add venv PATH
-				# export PATH=/root/.local/bin:$PATH
-
-				# """ >> ~/.bashrc  
-				
-				# echo " " 
-				# echo "Installing virtual environment resources ..."  
-				# echo " " 
-
-				# # Installs the attached packagelist
-				# python -m ipykernel install --user --name=venv
-				
-				# pip3 install -r myPlus.txt --ignore-installed
-				# #install_ubuntu_jupyter
-				# echo " "
 	}
 
 	install_ubuntu_anacondaStack() {
