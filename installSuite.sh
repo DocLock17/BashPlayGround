@@ -470,8 +470,39 @@ install_ubuntu_ml(){
 		echo "myStack Installation Complete"
 		echo " "
 	}
-
-	install_ubuntu_lambdaStack() {
+	install_lambda_stackOld() {
+	echo " "
+	echo "Installing Lambda Stack"
+	echo " "
+	# Installs lambda stack but currently appears to be broken
+  	LAMBDA_REPO=$(mktemp) && \
+  	wget -O${LAMBDA_REPO} https://lambdalabs.com/static/misc/lambda-stack-repo.deb && \
+  	sudo dpkg -i ${LAMBDA_REPO} && rm -f ${LAMBDA_REPO} && \
+  	sudo apt-get update && sudo apt-get install -y lambda-stack-cuda
+  	sudo reboot
+	echo " "
+	echo "Lambda Stack Installed"
+	echo " "
+}
+	install_lubuntu_lambdaStack(){
+		echo " "
+		echo "Installing Lambda Stack"
+		echo " "
+		LAMBDA_REPO=$(mktemp) && \
+		wget -O${LAMBDA_REPO} https://lambdalabs.com/static/misc/lambda-stack-repo.deb && \
+		sudo dpkg -i ${LAMBDA_REPO} && rm -f ${LAMBDA_REPO} && \
+		sudo apt-get update && \
+		sudo apt-get --yes upgrade && \
+		echo "cudnn cudnn/license_preseed select ACCEPT" | sudo debconf-set-selections && \
+		sudo apt-get install --yes --no-install-recommends lambda-server && \
+		sudo apt-get install --yes --no-install-recommends nvidia-450 libcuda1-450 nvidia-opencl-icd-450 && \
+		sudo apt-get install --yes --no-install-recommends lambda-stack-cuda
+		echo " "
+		echo "Lambda Stack Installed"
+		echo " "
+		sudo reboot
+	}
+	install_ubuntu_lambdaStackOld() {
 		# install_ubuntu_dependencies
 		# #update_selected
 		# install_ubuntu_utilities
