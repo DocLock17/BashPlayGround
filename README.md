@@ -14,13 +14,27 @@ https://developer.nvidia.com/rdp/cudnn-archive
 
 https://developer.nvidia.com/cuda-downloads
 
-lambda error
+/etc/resolv.conf.
+nameserver 8.8.4.4
+nameserver 8.8.8.8
 
-E: Failed to fetch http://archive.lambdalabs.com/ubuntu/pool/main/m/magma/libmagma2_2.5.3+ds-0lambda1_amd64.deb  Undetermined Error [IP: 52.218.225.58 80]
-E: Failed to fetch http://us.archive.ubuntu.com/ubuntu/pool/universe/i/intel-ipsec-mb/libipsec-mb0_0.53-1_amd64.deb  Undetermined Error [IP: 91.189.91.38 80]
-E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
-doclock17@LISMB-1:~$ 
+resolvectl status
 
-sudo add-apt-repository restricted
-sudo add-apt-repository multiverse
-sudo add-apt-repository universe
+addresses: [8.8.8.8, 8.8.4.4]
+            addresses: [7.7.7.7, 10.0.0.1]
+            search: [mydomain, otherdomain]
+
+
+# Let NetworkManager manage all devices on this system
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    wlx000f00730875:
+      addresses:
+        - 10.0.0.87/24
+      gateway4: 10.0.0.1
+      nameservers:
+          addresses: [8.8.8.8, 8.8.4.4, 7.7.7.7, 10.0.0.1]
+
+              search: [mydomain, otherdomain]
