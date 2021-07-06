@@ -317,7 +317,7 @@ runMe(){
 # 	echo """
 # 	# Nvidia 465/70+11 PATH
 # 	export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}
-
+	echo ""
 # 	""" >> ~/.bashrc && \
 # 	echo " "
 }
