@@ -5,7 +5,7 @@ mkdir Github && cd Github && mkdir DocLock17 && cd DocLock17 && sudo apt-get ins
 
 
 
-sudo apt install python3-pip -y && pip3 install tensorflow
+sudo apt install python3-pip -y && pip3 install tensorflow-gpu==2.4.0
 
 export PATH=/usr/local/cuda-11.4/bin${PATH:+:${PATH}}
 
@@ -21,6 +21,3 @@ E: Failed to fetch http://us.archive.ubuntu.com/ubuntu/pool/universe/i/intel-ips
 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
 doclock17@LISMB-1:~$ 
 
-
-BAD PATH
-bash: /usr/local/cuda/bin:/usr/local/cuda-11/bin:/usr/local/cuda-11.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin: No such file or directory
