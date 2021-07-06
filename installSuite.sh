@@ -226,9 +226,9 @@ install_ubuntu_nvidiaDrivers_Google_recommeded() {
 }
 install_ubuntu_nvidiaDrivers() {
 	# Perhaps we should purge any previous pieces
-	sudo apt-get --purge remove "*cublas*" "*cufft*" "*curand*" "*cusolver*" "*cusparse*" "*npp*" "*nvjpeg*" "cuda*" "nsight*" -y
-	sudo apt-get --purge remove "*nvidia*" -y
-	sudo apt-get autoremove -y
+	#sudo apt-get --purge remove "*cublas*" "*cufft*" "*curand*" "*cusolver*" "*cusparse*" "*npp*" "*nvjpeg*" "cuda*" "nsight*" -y
+	#sudo apt-get --purge remove "*nvidia*" -y
+	#sudo apt-get autoremove -y
 	
 	echo " "
 	echo "Add NVIDIA package repositories"
@@ -237,9 +237,9 @@ install_ubuntu_nvidiaDrivers() {
 	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
 	sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
 	
-	wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda-repo-ubuntu2004-11-4-local_11.4.0-470.42.01-1_amd64.deb
-	sudo dpkg -i cuda-repo-ubuntu2004-11-4-local_11.4.0-470.42.01-1_amd64.deb
-	sudo apt-key add /var/cuda-repo-ubuntu2004-11-4-local/7fa2af80.pub
+	wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda-repo-ubuntu2004-11-2-local_11.2.0-460.32.03-1_amd64.deb
+	sudo dpkg -i cuda-repo-ubuntu2004-11-2-local_11.2.0-460.32.03-1_amd64.deb
+	sudo apt-key add /var/cuda-repo-ubuntu2004-11-2-local/7fa2af80.pub
 	sudo apt-get update
 	sudo apt-get -y install cuda
 	
@@ -248,14 +248,18 @@ install_ubuntu_nvidiaDrivers() {
 	sudo apt install ./nvidia-machine-learning-repo-ubuntu2004_1.0.0-1_amd64.deb
 	sudo apt-get update
 	
+	wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/libnvinfer7_7.1.3-1+cuda11.2_amd64.deb
+	sudo apt install ./libnvinfer7_7.1.3-1+cuda11.2_amd64.deb
+	sudo apt-get update
+	
 	echo " "
 	echo "Install development and runtime libraries (~4GB) "
 	echo " "
 	# Install development and runtime libraries (~4GB)
 	sudo apt-get install --no-install-recommends \
-		cuda-11-0 \
-		libcudnn8  \
-		libcudnn8-dev -y
+		cuda-11-2 \
+		libcudnn8.1  \
+		libcudnn8.1-dev -y
 
 	echo " "
 	echo "Reboot. Check that GPUs are visible using the command: nvidia-smi "
@@ -284,8 +288,8 @@ install_ubuntu_server(){
 	update_selected
 	install_ubuntu_utilities
 	update_selected
-	sudo apt-get install --no-install-recommends nvidia-driver-450 -y
-	#sudo apt-get install --no-install-recommends nvidia-driver-460 -y
+	#sudo apt-get install --no-install-recommends nvidia-driver-450 -y
+	sudo apt-get install --no-install-recommends nvidia-driver-460 -y
 	#install_ubuntu_nvidiaDrivers
 	#update_selected
 	echo " "
