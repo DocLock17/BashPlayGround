@@ -270,8 +270,7 @@ runMe(){
 	# Add CUDA to the PATH
 	echo """
 	# Nvidia 465/70+11 PATH
-	export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}
-	export LD_LIBRARY_PATH=/usr/local/cuda-11.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+	export PATH=/usr/local/cuda-11.4/bin${PATH:+:${PATH}}
 
 	""" >> ~/.bashrc && \
 	echo " "
