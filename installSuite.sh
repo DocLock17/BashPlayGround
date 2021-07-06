@@ -396,7 +396,7 @@ install_software_selected() {
 	echo "5)Google Chrome  6)Spotify"
 	echo "7)runMe          8)Back to Menu"
 	echo ""
-	until [[ $install_software_sub == [1-7] ]]; do
+	until [[ $install_software_sub == [1-8] ]]; do
         	read -p "Selection: " install_software_sub
     	done
 
