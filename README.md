@@ -20,3 +20,7 @@ E: Failed to fetch http://archive.lambdalabs.com/ubuntu/pool/main/m/magma/libmag
 E: Failed to fetch http://us.archive.ubuntu.com/ubuntu/pool/universe/i/intel-ipsec-mb/libipsec-mb0_0.53-1_amd64.deb  Undetermined Error [IP: 91.189.91.38 80]
 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
 doclock17@LISMB-1:~$ 
+
+
+BAD PATH
+bash: /usr/local/cuda/bin:/usr/local/cuda-11/bin:/usr/local/cuda-11.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin: No such file or directory
