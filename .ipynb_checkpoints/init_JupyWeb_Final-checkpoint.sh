@@ -43,6 +43,7 @@ sudo apt-get install curl -y
 sudo apt-get install gcc -y
 sudo apt-get install g++ -y
 sudo apt-get install micro -y
+sudo apt-get install vim -y
 sudo apt-get install tilix -y
 sudo apt-get install net-tools -y
 sudo apt-get install screen -y
